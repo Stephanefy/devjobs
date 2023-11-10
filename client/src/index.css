@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply dark:bg-app-midnight;
+
+    margin: 0;
+    padding: 0;
+    background-color: rgb(244, 246, 248);
+    height: 100%;
+}
+
+/* useful to modify list style type */
+
+/* ol
+{
+    list-style: none;
+    margin-left: 0;
+}
+
+li
+{
+    counter-increment: custom;
+}
+
+ol li:before
+{
+    content: counter(custom) " ";   
+    color: #5964E0;
+    margin-right: .8rem;
+    unicode-bidi: isolate;
+    
+}
+
+ol li:first-child {
+  counter-reset: custom;
+} */
