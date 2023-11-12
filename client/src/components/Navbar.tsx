@@ -1,19 +1,22 @@
-import { useContext } from 'react'
-import Switchbutton from './Switchbutton'
+import { useContext, useState } from 'react'
+import SwitchButton from './Switchbutton'
 import { Link } from 'react-router-dom'
 import logo from '/assets/desktop/logo.svg'
 import { useLocation } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { useLogout } from '../hooks/useLogout'
 import { useScroll } from '../hooks/useScroll'
+import BurgerButton from './BurgerButton'
+import { Menu } from '@headlessui/react'
+import SunMoonButton from './SunMoonButton'
 
 const Navbar = () => {
     const { state } = useContext(AuthContext)
     const { logout } = useLogout()
     const { scrollY } = useScroll()
+    const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false)
 
     const location = useLocation()
-   
 
     return (
         <nav
@@ -24,7 +27,12 @@ const Navbar = () => {
             } `}
         >
             <div className="pt-8 flex justify-between w-10/12 md:w-5/6 mx-auto md:max-w-6xl">
-                <div className={`${location.pathname.includes("dashboard") && "transform translate-x-20"}`}>
+                <div
+                    className={`${
+                        location.pathname.includes('dashboard') &&
+                        'transform translate-x-20'
+                    }`}
+                >
                     <h1>
                         <Link to="/">
                             <img src={logo} alt="logo" />
@@ -32,8 +40,8 @@ const Navbar = () => {
                     </h1>
                 </div>
 
-                <div className="flex items-start justify-between w-3/12 h-full">
-                    {state.user.id !== 0 ? (
+                <div className="flex items-start justify-end space-x-4 md:w-3/12 h-full">
+                    {state.user?.id !== 0 ? (
                         <div className="hidden md:flex space-x-6">
                             <button
                                 className="mb-2 mr-2 text-white hover:underline"
@@ -76,20 +84,42 @@ const Navbar = () => {
                             </Link>
                         </div>
                     ) : (
-                        <div className="mr-[1.7em]">
-                            <Link to="/login">
-                                <button className="mb-2 mr-2 text-white hover:underline">
-                                    login
-                                </button>
-                            </Link>
-                            <Link to="/signup">
-                                <button className="mb-2 text-white hover:underline">
-                                    sign up
-                                </button>
-                            </Link>
+                        <div>
+                            <Menu>
+                                {({ open, close }) => (
+                                    <>
+                                        <Menu.Button className="relative">
+                                            {' '}
+                                            <BurgerButton open={open} />
+                                        </Menu.Button>
+                                        <Menu.Items
+                                            className="absolute top-[100px] flex flex-col bg-app-violet p-5 rounded z-[99]"
+                                            as="ul"
+                                        >
+                                            <Menu.Item>
+                                                <Link to="/login">
+                                                    <button className="mb-2 mr-2 text-white hover:underline">
+                                                        login
+                                                    </button>
+                                                </Link>
+                                            </Menu.Item>
+                                            <Menu.Item>
+                                                <Link to="/signup">
+                                                    <button className="mb-2 text-white hover:underline">
+                                                        sign up
+                                                    </button>
+                                                </Link>
+                                            </Menu.Item>
+                                        </Menu.Items>
+                                    </>
+                                )}
+                            </Menu>
                         </div>
                     )}
-                    <Switchbutton />
+                    <div className="md:block mt-4">
+                        {/* <SwitchButton /> */}
+                        <SunMoonButton/>
+                    </div>
                 </div>
             </div>
         </nav>

@@ -25,10 +25,10 @@ function Carditem({card} : CardItemProps) {
 
   return (
     <li 
-    className="relative w-full lg:w-[350px] md:h-[228px] mt-16 py-8 px-4 lg:px-8 bg-white rounded-xl cursor-pointer dark:bg-app-very-black-blue"
+    className="relative w-[250px] place-self-center lg:w-[350px] md:h-[228px] mt-16 py-4 md:py-8 px-2 lg:px-8 bg-white rounded-xl cursor-pointer dark:bg-app-very-black-blue "
     onClick={() => handleNavigateToDetail(card.id)}
     >
-      <div className="absolute w-[50px] h-[50px] -top-6 grid place-items-center rounded-2xl" style={{backgroundColor: card.logoBackground}}>
+      <div className="absolute w-[50px] place-self-center h-[50px] -top-6 flex justify-center items-center rounded-2xl" style={{backgroundColor: card.logoBackground}}>
         <img src={`${card.logo ? card.logo : '/assets/logos/logo-devjob-app.svg'}`} alt="logo" />
       </div>
       <div className="mt-2 mb-2">

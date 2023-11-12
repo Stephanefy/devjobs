@@ -47,7 +47,7 @@ const LoginComponent = () => {
             </h2>
             <form
                 onSubmit={onSubmit}
-                className="flex flex-col items-start w-6/12 mx-6 rounded-lg p-3 bg-app-very-black-blue dark:bg-app-light-grey"
+                className="flex flex-col items-start md:w-6/12 mx-6 rounded-lg p-5 bg-app-very-black-blue dark:bg-app-light-grey"
             >
                 <label htmlFor="email">
                     <span className="text-white dark:text-black">

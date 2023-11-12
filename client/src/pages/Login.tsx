@@ -5,7 +5,7 @@ const LoginPage = () => {
 
 
     return (
-        <div className="h-screen w-7/12 mx-auto flex flex-col justify-center items-center">
+        <div className="h-screen w-full md:w-7/12 mx-auto flex flex-col justify-center items-center">
             <LoginComponent/>
         </div>
     )

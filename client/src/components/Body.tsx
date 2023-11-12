@@ -4,7 +4,7 @@ import Button from './Button'
 
 function Body({currentJob} : any) {
   return (
-    <section className="w-5/6 lg:w-[700px] bg-white dark:bg-app-very-black-blue rounded-md mx-auto mt-56 px-10 py-10 text-app-gray">
+    <section className=" lg:w-[700px] bg-white dark:bg-app-very-black-blue rounded-md mx-auto mt-56 px-10 py-10 text-app-gray">
       <div>
         <span>{currentJob?.postedAt}</span>
         <span className="text-app-gray mx-2 text-6xl">.</span>
