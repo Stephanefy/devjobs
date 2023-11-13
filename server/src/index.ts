@@ -1,7 +1,7 @@
 import express from "express";
 import prisma from "./db";
 import cors from "cors";
-import { createNewUser, signin, refreshToken, forgotPassword } from "./handlers/user";
+import { createNewUser, signin, refreshToken, forgotPassword, resetPasswordHandler } from "./handlers/user";
 import router from "./routes/router";
 import { protect } from "./modules/auth";
 import cookieParser from "cookie-parser";
@@ -55,6 +55,7 @@ async function bootstrap() {
   app.post("/signin", signin);
   app.post("/refresh", refreshToken);
   app.post("/forgot-password", forgotPassword)
+  app.post("/reset-password/:resetToken", resetPasswordHandler)
 
   app.get("/", (req, res) => {
     res.json({ message: "Hello the server is working" });

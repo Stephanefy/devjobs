@@ -1,22 +1,21 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import Detail from './pages/Detail'
+import { StateMachineProvider } from 'little-state-machine'
+import { useEffect } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Searchbar from './components/Searchbar'
-import GlobalContextProvider from './context/JobContext'
 import { AuthContextProvder } from './context/AuthContext'
+import GlobalContextProvider from './context/JobContext'
+import Auth from './hoc/Auth'
+import ConfirmSignup from './pages/ConfirmSignup'
+import Detail from './pages/Detail'
+import ResetPassword from './pages/ResetPassword'
+import ForgotPassword from './pages/ForgotPassword'
+import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
-import ConfirmSignup from './pages/ConfirmSignup'
-import { StateMachineProvider } from 'little-state-machine'
 import MainDashboardTeacher from './pages/recruiter/dashboard/MainDashboardTeacher'
-import Auth from './hoc/Auth'
-import MainPanel from './pages/recruiter/dashboard/main/MainPanel'
 import JobOffersPanel from './pages/recruiter/dashboard/jobOffers/JobOffersPanel'
-import BasicInfoInputs1 from './pages/recruiter/dashboard/jobOffers/JobOfferForm/BasicInfoInputs1'
+import MainPanel from './pages/recruiter/dashboard/main/MainPanel'
 import checkExpiryDate from './utils/checkExpiryData'
-import ResetPassword from './pages/ResetPassword'
 
 function App() {
 
@@ -42,9 +41,6 @@ function App() {
         }
         if (isNotExpired) {
             revalidateToken(userId).then(res => res.json()).then(data => console.log(data))
-            
-            
-            
         }
 
     }, [])
@@ -61,11 +57,13 @@ function App() {
                                 <Route path="job/:id" element={<Detail />} />
                                 <Route path="login" element={<Login />} />
                                 <Route path="signup" element={<SignUp />} />
-                                <Route path="forgot-password" element={<ResetPassword />} />
+                                <Route path="forgot-password" element={<ForgotPassword />} />
+                                <Route path="reset-password/:resetKey" element={<ResetPassword />} />
                                 <Route
                                     path="confirm-signup"
                                     element={<ConfirmSignup />}
                                 />
+                                {/*these routes are protected */}
                                 <Route
                                     element={
                                         <Auth allowedRoles={['EMPLOYER']} />

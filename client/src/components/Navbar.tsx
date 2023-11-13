@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react'
-import SwitchButton from './Switchbutton'
 import { Link } from 'react-router-dom'
 import logo from '/assets/desktop/logo.svg'
 import { useLocation } from 'react-router-dom'
@@ -116,7 +115,7 @@ const Navbar = () => {
                             </Menu>
                         </div>
                     )}
-                    <div className="md:block mt-4">
+                    <div className={`md:block ${!location.pathname.includes('dashboard') && 'mt-4'}`}>
                         {/* <SwitchButton /> */}
                         <SunMoonButton/>
                     </div>

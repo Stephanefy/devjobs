@@ -35,6 +35,12 @@ const LoginComponent = () => {
     })
 
     useEffect(() => {
+        if (state.user!.role === 'EMPLOYER') {
+            navigate('/dashboard/main')
+        }
+    }, [])
+
+    useEffect(() => {
         if (isSuccess && state.user!.role === 'EMPLOYER') {
             navigate('/dashboard/main')
         }
@@ -47,7 +53,7 @@ const LoginComponent = () => {
             </h2>
             <form
                 onSubmit={onSubmit}
-                className="flex flex-col items-start md:w-6/12 mx-6 rounded-lg p-5 bg-app-very-black-blue dark:bg-app-light-grey"
+                className="md:w-6/12 mx-6 rounded-lg p-5 bg-app-very-black-blue dark:bg-app-light-grey"
             >
                 <label htmlFor="email">
                     <span className="text-white dark:text-black">
@@ -57,7 +63,7 @@ const LoginComponent = () => {
                 <input
                     id="email"
                     type="email"
-                    className="border-none w-full p-3 mt-2"
+                    className="border-none block rounded w-full p-3 mt-2"
                     {...register('email', { required: true })}
                 />
                 <label htmlFor="password">
@@ -66,7 +72,7 @@ const LoginComponent = () => {
                 <input
                     id="password"
                     type="password"
-                    className="border-none w-full p-3 mt-2"
+                    className="border-none block rounded w-full p-3 mt-2"
                     {...register('password', { required: true })}
                 />
                 <div className="flex justify-center w-full mt-4">

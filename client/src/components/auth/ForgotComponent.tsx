@@ -6,10 +6,11 @@ import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import useResetPassword from '../../hooks/useResetPassword'
 
+
 const ForgotComponent = () => {
     const { getState } = useStateMachine()
     const { state } = useContext(AuthContext)
-    const { forgotPassword, isSuccess, error } = useResetPassword()
+    const { forgotPassword, isSuccess, error, isLoading } = useResetPassword()
     const navigate = useNavigate()
 
     const {
@@ -25,10 +26,13 @@ const ForgotComponent = () => {
     }, [])
 
     const onSubmit = handleSubmit(async (data) => {
-        console.log(data)
 
         try {
-            await forgotPassword(data.email)
+            const responseData = await forgotPassword(data.email)
+            
+         
+            navigate(responseData!.resetUrl, {replace: true})
+
         } catch (err) {
             console.log(err)
         }

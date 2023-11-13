@@ -47,13 +47,20 @@ export const AuthContextProvder = ({ children } : ChildrenProps) => {
 
     console.log('from context', user)
 
+    useEffect(() => {
+        if (Object.values(user).length > 0) {
+            dispatch({type:"LOGIN", payload: user})
+        }
+    },[])
+    
+
 
 
     const [state, dispatch] = useReducer(authReducer, initialState)
 
 
     useEffect(() => {
-        console.log('state',state)
+        console.log('state from AuthContext',state)
     }, [state])
 
     return (

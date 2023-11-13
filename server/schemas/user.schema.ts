@@ -98,4 +98,3 @@ export type UpdateUserInput = TypeOf<typeof updateUserSchema>['body'];
 
 export type ForgotPasswordInput = TypeOf<typeof forgotPasswordSchema>['body'];
 export type ResetPasswordInput = TypeOf<typeof resetPasswordSchema>;
-
