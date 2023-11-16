@@ -44,5 +44,8 @@ declare module 'little-state-machine' {
     },
     jobPost: JobPost,
     formStep: FormStep;
+    sidebarState: {
+      status: number
+    };
   }
 }

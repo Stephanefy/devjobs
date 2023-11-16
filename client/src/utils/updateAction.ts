@@ -90,3 +90,12 @@ export function updateRole(state: GlobalState, payload: Role) {
         },
     }
 }
+
+export function updateSidebarState(state: GlobalState, payload: number) {
+    return {
+        ...state,
+        sidebarState: {
+            status: payload
+        }
+    }
+}

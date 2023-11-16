@@ -8,12 +8,19 @@ import Card from './Card';
 import { JobPost } from '../../../../types/global';
 import Table from '../../../../components/Table';
 import Button from '../../../../components/Button';
+import { useStateMachine } from 'little-state-machine';
 
 interface Props {
   
 }
 
 const MainPanel: FC<Props> = (props): JSX.Element => {
+
+
+  const { state: littleStateMachine, getState } = useStateMachine()
+
+
+  console.log("fdsfsd",getState())
 
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openPanel2, setOpenPanel2] = useState<boolean>(false);
@@ -32,6 +39,8 @@ const MainPanel: FC<Props> = (props): JSX.Element => {
 }, [])
 
   const { state } = useContext(AuthContext)
+
+  console.log("reached")
 
   return (
     <section className='min-h-screen w-10/12 my-8 bg-gray-200 pt-8 pl-8 lg:pl-16 lg:px-8'>

@@ -80,6 +80,8 @@ export const getPostedJobpostsCount = async (
   res: Response,
   next: NextFunction
 ) => {
+
+  console.log("reached")
   try {
     const postedCount = await prisma.jobPost.count({
       where: {

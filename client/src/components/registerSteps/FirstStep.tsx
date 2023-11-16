@@ -14,6 +14,8 @@ const FirstSteps = ({ onstephandler }: Props) => {
     const { actions, state } = useStateMachine({ updateSignUp })
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    console.log("state from little State machine",state)
+
     const onSubmit = handleSubmit((data, e) : void => {    
         onstephandler(e)
         actions.updateSignUp({email: data.email})

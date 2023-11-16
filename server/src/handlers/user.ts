@@ -73,7 +73,7 @@ export const signin = async (
       secure: process.env.NODE_ENV === "production",
     });
 
-    return res.status(200).json({
+    res.status(200).json({
       id: user!.id,
       message: "User created successfully",
       email: user!.email,

@@ -108,7 +108,7 @@ const FormIndex: FC<Props> = ({ step, setStep }: Props): JSX.Element => {
     useEffect(() => {
         const storedFormData = sessionStorage.getItem('__LSM__')
 
-        if (storedFormData === null) return
+        if (storedFormData === null || !storedFormData.hasOwnProperty("jobPost")) return
 
         if (!isEmptyObject(JSON.parse(storedFormData as string)?.jobPost)) {
             const parsedData = JSON.parse(storedFormData as string)

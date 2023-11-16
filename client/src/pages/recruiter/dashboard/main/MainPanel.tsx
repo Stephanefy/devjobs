@@ -4,10 +4,13 @@ import StatsApplicants from './StatsApplicants'
 import StatsJobfield from './StatsJobfield'
 import { User } from '../../../../context/AuthContext'
 import { AuthContext } from '../../../../context/AuthContext'
+import { useStateMachine } from 'little-state-machine'
 
 interface Props {}
 
 const MainPanel: FC<Props> = (props): JSX.Element => {
+
+
     const { state } = useContext(AuthContext)
 
     const [postedJobCount, setPostedJobCount] = useState<number>(0)
@@ -15,7 +18,10 @@ const MainPanel: FC<Props> = (props): JSX.Element => {
     useEffect(() => {
         fetch('/api/jobPost/posted-count', { credentials: 'include' })
             .then((res) => res.json())
-            .then((data) => setPostedJobCount(data.count))
+            .then((data) => {
+                console.log('data',data)
+                setPostedJobCount(data.count)
+            }).catch(err => console.log(err))
     }, [])
 
     return (

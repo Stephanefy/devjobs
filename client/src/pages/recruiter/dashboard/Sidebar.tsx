@@ -1,12 +1,15 @@
 import { FC, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLogout } from '../../../hooks/useLogout'
+import { updateSidebarState } from '../../../utils/updateAction'
+import { useStateMachine } from 'little-state-machine'
 
 interface Props {}
 
 const Sidebar: FC<Props> = (props): JSX.Element => {
     const [fullWidth, setFullWidth] = useState<boolean>(true)
     const [scrollY, setScrollY] = useState<number>(0)
+    const { state, actions } = useStateMachine({updateSidebarState})
     const { logout } = useLogout()
 
 
@@ -20,7 +23,16 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
         })
     }, [])
 
-    console.log('fullWidth', fullWidth)
+
+    useEffect(() => {
+        console.log("fullWidth", fullWidth)
+        actions.updateSidebarState(fullWidth ? 1 : 0)
+
+    },[fullWidth])
+
+
+
+    
 
     return (
         <div className="w-2/12 h-screen z-50">
@@ -221,7 +233,9 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                 <div className="hidden md:block md:fixed bottom-10 md:bottom-0 lg:left-4">
                     <button
                         type="button"
-                        onClick={() => setFullWidth(!fullWidth)}
+                        onClick={() => {
+                            setFullWidth(!fullWidth)
+                        }}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -248,7 +262,9 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                 <div className="hidden md:block md:fixed bottom-10 md:bottom-0 left-10 lg:left-20">
                     <button
                         type="button"
-                        onClick={() => setFullWidth(!fullWidth)}
+                        onClick={() => { 
+                            setFullWidth(!fullWidth)
+                        }}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

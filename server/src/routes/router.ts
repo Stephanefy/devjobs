@@ -6,12 +6,13 @@ const router = Router();
 
 /**
  * jobPost related routes
+ * Careful always place 'specific routes' in the latest order
  */
 router.post('/jobPost', createNewJobPost)
-router.delete('/jobPost/:id', deletejobpost)
-router.get('/jobPost/:id', getJobPostDetail)
 router.get('/jobPost/posted-count', getPostedJobpostsCount)
 router.get('/jobPost', getAllJobPostsCreatedBy)
+router.get('/jobPost/:id', getJobPostDetail)
+router.delete('/jobPost/:id', deletejobpost)
 
 /**
  * user related routes

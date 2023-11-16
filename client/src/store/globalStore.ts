@@ -31,6 +31,9 @@ createStore({
     },
     formStep:{
       step: 0,
+    },
+    sidebarState: {
+      status: 0
     }
     
 },{

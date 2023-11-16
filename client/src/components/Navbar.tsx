@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '/assets/desktop/logo.svg'
 import { useLocation } from 'react-router-dom'
@@ -8,14 +8,28 @@ import { useScroll } from '../hooks/useScroll'
 import BurgerButton from './BurgerButton'
 import { Menu } from '@headlessui/react'
 import SunMoonButton from './SunMoonButton'
+import { useStateMachine } from 'little-state-machine'
+import classNames from 'classnames'
 
 const Navbar = () => {
     const { state } = useContext(AuthContext)
+    const { state: littleStateMachineState ,getState } = useStateMachine()
+
     const { logout } = useLogout()
     const { scrollY } = useScroll()
     const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false)
 
     const location = useLocation()
+
+
+    useEffect(() => {
+
+        console.log("state",littleStateMachineState)
+
+
+        console.log(state)
+    }, [])
+
 
     return (
         <nav
@@ -27,10 +41,11 @@ const Navbar = () => {
         >
             <div className="pt-8 flex justify-between w-10/12 md:w-5/6 mx-auto md:max-w-6xl">
                 <div
-                    className={`${
-                        location.pathname.includes('dashboard') &&
-                        'transform translate-x-20'
-                    }`}
+                    className={classNames({
+                        'transition ease-in-out transform translate-x-24': littleStateMachineState.sidebarState?.status === 1 ,
+                        'transition ease-in-out transform translate-x-0': littleStateMachineState.sidebarState?.status === 0
+                        
+                    })}
                 >
                     <h1>
                         <Link to="/">
@@ -115,7 +130,7 @@ const Navbar = () => {
                             </Menu>
                         </div>
                     )}
-                    <div className={`md:block ${!location.pathname.includes('dashboard') && 'mt-4'}`}>
+                    <div className={`md:block`}>
                         {/* <SwitchButton /> */}
                         <SunMoonButton/>
                     </div>

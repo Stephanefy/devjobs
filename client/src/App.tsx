@@ -12,7 +12,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
-import MainDashboardTeacher from './pages/recruiter/dashboard/MainDashboardTeacher'
+import MainDashBoardEmployer from './pages/recruiter/dashboard/MainDashboardEmployer'
 import JobOffersPanel from './pages/recruiter/dashboard/jobOffers/JobOffersPanel'
 import MainPanel from './pages/recruiter/dashboard/main/MainPanel'
 import checkExpiryDate from './utils/checkExpiryData'
@@ -71,7 +71,7 @@ function App() {
                                 >
                                     <Route
                                         path="dashboard"
-                                        element={<MainDashboardTeacher />}
+                                        element={<MainDashBoardEmployer />}
                                     >
                                         <Route path="main" element={<MainPanel/>} />
                                         <Route path="job-offers" element={<JobOffersPanel/>}>

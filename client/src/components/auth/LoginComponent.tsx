@@ -7,7 +7,6 @@ import { AuthContext } from '../../context/AuthContext'
 import { useSignIn } from '../../hooks/useSignIn'
 
 const LoginComponent = () => {
-    const { getState } = useStateMachine()
     const { signIn, error, isSuccess } = useSignIn()
     const { state } = useContext(AuthContext)
     const navigate = useNavigate()
@@ -18,11 +17,7 @@ const LoginComponent = () => {
         formState: { errors },
     } = useForm()
 
-    useEffect(() => {
-        console.log(getState())
-
-        console.log(state)
-    }, [])
+  
 
     const onSubmit = handleSubmit(async (data) => {
         console.log(data)
