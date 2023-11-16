@@ -5,7 +5,7 @@ import Step from '../../../../../components/Step'
 
 interface Props {}
 
-const JobOfferModalContent: FC<Props> = (props): JSX.Element => {
+const JobOffersModalContent: FC<Props> = (props): JSX.Element => {
 
     const [step, setStep] = useState<number>(1)
 
@@ -26,4 +26,4 @@ const JobOfferModalContent: FC<Props> = (props): JSX.Element => {
     )
 }
 
-export default JobOfferModalContent
+export default JobOffersModalContent

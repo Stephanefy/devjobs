@@ -1,22 +1,41 @@
+import { useEffect, useState } from 'react'
 import { FC, Dispatch, SetStateAction } from 'react'
 import { JobPost } from '../types/global'
-const people = [
-    {
-        name: 'Lindsay Walton',
-        title: 'Front-end Developer',
-        email: 'lindsay.walton@example.com',
-        role: 'Member',
-    },
-    // More people...
-]
+import toast, { Toaster } from 'react-hot-toast';
+
+
 interface Props {
     jobPosts: Array<JobPost>
     setOpenModal: Dispatch<SetStateAction<boolean>>
+    setPostedJob: Dispatch<SetStateAction<JobPost[]>>
     handleOpenUpdateForm: (jobId: string) => void
 }
 
-const Table: FC<Props> = (props): JSX.Element => {
-  
+const JobOffersTable: FC<Props> = (props): JSX.Element => {
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    
+    const notify = () => toast("job offer deleted with success")
+    
+    const deleteJobPost = async (id: string) => {
+        setIsLoading(true)
+        const response = await fetch(`/api/jobPost/${id}`, { 
+            method: "DELETE",
+            credentials: 'include' })
+        .then((res) => {
+
+            if (res.ok) {
+
+                const updatedJobPosts = props.jobPosts.filter((jobPost) => jobPost.id !== id)
+
+                props.setPostedJob(updatedJobPosts)
+                
+                setIsLoading(false)
+                notify()
+
+            }
+        })
+    }
 
     return (
         <div className="px-4 sm:px-6 lg:px-8">
@@ -95,12 +114,21 @@ const Table: FC<Props> = (props): JSX.Element => {
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                 {jobPost.postedAt}
                                             </td>
-                                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-4">
                                                 <button
                                                     onClick={() => props.handleOpenUpdateForm(jobPost.id)}
                                                     className="text-indigo-600 hover:text-indigo-900"
                                                 >
                                                     Edit
+                                                    <span className="sr-only">
+                                                        , {jobPost.website}
+                                                    </span>
+                                                </button>
+                                                <button
+                                                    onClick={() => deleteJobPost(jobPost.id)}
+                                                    className="text-red-500 hover:text-indigo-900"
+                                                >
+                                                    Delete
                                                     <span className="sr-only">
                                                         , {jobPost.website}
                                                     </span>
@@ -114,8 +142,9 @@ const Table: FC<Props> = (props): JSX.Element => {
                     </div>
                 </div>
             </div>
+            <Toaster />
         </div>
     )
 }
 
-export default Table
+export default JobOffersTable

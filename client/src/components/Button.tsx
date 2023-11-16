@@ -24,7 +24,7 @@ function Button({buttonType, text1, text2, background, textColor, paddingX, padd
     <button 
       type={buttonType} 
       className={`${isMobile && 'w-full'} ${background} ${paddingX} ${paddingY} rounded-md ${textColor} dark:text-white`}
-      onClick={() => onClick}
+      onClick={onClick}
       >
       <span className="text-base mr-1 font-semibold">{text1}</span>
       <span className="text-base font-semibold">{text2}</span>
