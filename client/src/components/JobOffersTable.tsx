@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { FC, Dispatch, SetStateAction } from 'react'
 import { JobPost } from '../types/global'
 import toast, { Toaster } from 'react-hot-toast';
+import classNames from 'classnames';
 
 
 interface Props {
@@ -60,22 +61,16 @@ const JobOffersTable: FC<Props> = (props): JSX.Element => {
             </div>
             <div className="mt-8 flex flex-col">
                 <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                            <table className="min-w-full divide-y divide-gray-300">
+                    <div className="inline-block md:min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
+                            <table className="md:min-w-full divide-y divide-gray-300 rounded-lg">
                                 <thead className="bg-gray-50">
                                     <tr>
                                         <th
                                             scope="col"
-                                            className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                            className="hidden md:inline-block w-32 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                                         >
                                             Contract
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                        >
-                                            Location
                                         </th>
                                         <th
                                             scope="col"
@@ -85,9 +80,9 @@ const JobOffersTable: FC<Props> = (props): JSX.Element => {
                                         </th>
                                         <th
                                             scope="col"
-                                            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                            className="hidden md:inline px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                                         >
-                                            website
+                                            posted at
                                         </th>
                                         <th
                                             scope="col"
@@ -102,17 +97,14 @@ const JobOffersTable: FC<Props> = (props): JSX.Element => {
                                 <tbody className="divide-y divide-gray-200 bg-white">
                                     {props.jobPosts.map((jobPost) => (
                                         <tr key={jobPost.id}>
-                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                            <td className="hidden md:inline whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                 {jobPost.contract}
-                                            </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                {jobPost.location}
                                             </td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                 {jobPost.position}
                                             </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                {jobPost.postedAt}
+                                            <td className="hidden md:inline-block whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                {new Date(jobPost.postedAt).toLocaleDateString()}
                                             </td>
                                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-4">
                                                 <button

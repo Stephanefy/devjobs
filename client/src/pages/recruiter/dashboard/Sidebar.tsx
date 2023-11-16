@@ -25,7 +25,6 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
 
 
     useEffect(() => {
-        console.log("fullWidth", fullWidth)
         actions.updateSidebarState(fullWidth ? 1 : 0)
 
     },[fullWidth])
@@ -43,7 +42,7 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                         : 'transform -translate-x-2/3 ease-in duration-75'
                 } pt-32 lg:pt-48`}
             >
-                <ul className="flex flex-col items-center flex-1 lg:items-start gap-y-16 text-white w-full pr-8">
+                <ul className="flex flex-col items-center flex-1 lg:items-start gap-y-16 text-white w-full pr-4 md:pr-8">
                     <li
                         className={`
                         ${
