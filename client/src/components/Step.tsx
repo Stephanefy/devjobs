@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { motion } from 'framer-motion'
 
 type StepProps = {
     step: number
     currentStep: number
+    setStep?: Dispatch<SetStateAction<number>>
 }
 
 type CheckIconProps = {
     className: string
 }
 
-function Step({ step, currentStep }: StepProps) {
+function Step({ step, currentStep, setStep }: StepProps) {
     let status =
         currentStep === step
             ? 'active'
@@ -64,7 +65,11 @@ function Step({ step, currentStep }: StepProps) {
                 transition={{ duration: 0.2 }}
                 className={`relative flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold`}
             >
-                <div className="flex items-center justify-center">
+                <div
+                    className="flex items-center justify-center"
+                    role="button"
+                    // onClick={() => setStep(step)}
+                >
                     {status === 'complete' ? (
                         <CheckIcon className="h-6 w-6 text-white" />
                     ) : (
@@ -75,7 +80,6 @@ function Step({ step, currentStep }: StepProps) {
         </motion.div>
     )
 }
-
 
 function CheckIcon(props: CheckIconProps) {
     return (
@@ -102,6 +106,5 @@ function CheckIcon(props: CheckIconProps) {
         </svg>
     )
 }
-
 
 export default Step

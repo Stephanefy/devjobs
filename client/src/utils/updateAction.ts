@@ -64,6 +64,8 @@ export function setCurrentStep(state: GlobalState, payload: number) {
 }
 
 export function updateRequirements(state: GlobalState, payload: Requirements) {
+
+
     return {
         ...state,
         jobPost: {

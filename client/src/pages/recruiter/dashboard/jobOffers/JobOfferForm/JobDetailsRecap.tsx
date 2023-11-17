@@ -8,7 +8,7 @@ const JobDetailsRecap: FC<Props> = (props): JSX.Element => {
     const { jobPost } = getState()
 
     return (
-        <section className="flex flex-col items-center w-full bg-app-violet p-3 py-16 text-white ">
+        <section className="flex flex-col items-center w-full bg-app-violet p-3 py-3 mt-12 text-white rounded-md">
             <h3 className="text-center text-white text-2xl">
                 Job details recap
             </h3>

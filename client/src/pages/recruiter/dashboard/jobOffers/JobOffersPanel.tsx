@@ -65,7 +65,7 @@ const MainPanel: FC<Props> = (props): JSX.Element => {
                 </div>
             ) : null}
             <PortalModal isOpen={openModal} onClose={() => setOpenModal(false)}>
-                <JobOfferModalContent />
+                <JobOfferModalContent setOpenModal={setOpenModal}/>
             </PortalModal>
             {openPanel2 ? (
                 <JobOfferUpdateModalContent

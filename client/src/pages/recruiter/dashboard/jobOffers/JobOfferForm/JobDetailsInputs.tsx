@@ -18,13 +18,13 @@ const JobDetailsInputs: FC<Props> = ({ step, setStep, register }: Props): JSX.El
 
     return (
         <>
-            <div className="flex items-center justify-between my-2 w-full">
-                <label className='text-1xl font-semibold'>Description</label>
+            <div className="flex flex-col my-2 w-full">
+                <label className='text-1xl font-semibold my-5'>Description</label>
                 <textarea
                     required
-                    rows={5}
+                    rows={8}
                     aria-required={true}
-                    className="w-7/12 max-h-[300px] rounded-md border-0 px-4 py-3 placeholder-gray-300 shadow mr-2"
+                    className="w-12/12 rounded-md border-0 px-4 py-3 placeholder-gray-300 shadow mr-2"
                     {...register('description', { value: state.jobPost && state.jobPost.description})}
                 />
             </div>
