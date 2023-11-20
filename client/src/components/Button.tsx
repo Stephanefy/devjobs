@@ -34,7 +34,7 @@ function Button({
     return (
         <button
             type={buttonType}
-            className={`${width} ${background} ${paddingX} ${paddingY} rounded-md ${textColor} dark:text-white cursor-pointer`}
+            className={`${width} ${background} ${paddingX} ${paddingY} rounded-md ${textColor} dark:text-white cursor-pointer hover:opacity-70 transition ease-in 300s`}
             onClick={onClick}
         >
             <span className="text-base mr-1 font-semibold">{text1}</span>

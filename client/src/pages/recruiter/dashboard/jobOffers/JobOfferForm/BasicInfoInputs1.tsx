@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react'
+import { FC, useRef, useState } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 import { useStateMachine } from 'little-state-machine'
 import DragAndDropImgFile from '../../../../../components/forms/DragAndDropImgFile'
@@ -9,6 +9,11 @@ interface Props {
     register: UseFormRegister<FieldValues>
 }
 
+const contractSelection = [
+    { id: 1, label: 'Durward Reynolds', unavailable: false },
+    { id: 2, label: 'Kenton Towne', unavailable: false },
+]
+
 const BasicInfoInputs: FC<Props> = ({
     step,
     setStep,
@@ -17,6 +22,9 @@ const BasicInfoInputs: FC<Props> = ({
     const nodeRef = useRef()
 
     const { state } = useStateMachine()
+    const [selectedContract, setSelectedContract] = useState(
+        contractSelection[0]
+    )
 
     console.log(state)
 
@@ -27,7 +35,7 @@ const BasicInfoInputs: FC<Props> = ({
                     Company information
                 </h4>
             </div> */}
-            <div className='my-5'>
+            <div className="my-5">
                 <div className="items-start justify-between w-full">
                     <label className="font-semibold">Company name</label>
                     <input
@@ -81,15 +89,17 @@ const BasicInfoInputs: FC<Props> = ({
                 </div>
                 <div className="md:flex-row  items-start justify-between my-2 w-full">
                     <label className="my-2 font-semibold">Contract</label>
-                    <input
-                        type="text"
+                    <select
                         required
                         aria-required={true}
-                        className="w-full rounded-md border-0 p-3 mr-2 placeholder-gray-300 shadow"
+                        className="appearance-none w-full rounded-md border-0 p-3 mr-2 placeholder-gray-300 shadow"
                         {...register('contract', {
                             value: state.jobPost && state.jobPost.contract,
                         })}
-                    />
+                    >
+                        <option className="appearance-none" value="Full Time">Full time</option>
+                        <option className="appearance-none" value="Part Time">Part time</option>
+                    </select>
                 </div>
             </div>
             {/* <StepNavigationBtn step={step} setStep={setStep}/> */}

@@ -82,7 +82,7 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                         className={`
                         ${
                             fullWidth
-                                ? 'transform translate-x-0'
+                                ? 'transform translate-x-0 ease-out'
                                 : 'w-32 transform translate-x-28 ease-in duration-300'
                         }
                 `}

@@ -23,7 +23,10 @@ const JobOffersModalContent: FC<Props> = ({setOpenModal}): JSX.Element => {
 
     return (
         <div className="min-h-max flex flex-col justify-center w-12/12 md:w-8/12 bg-white z-50 px-8 lg:px-6 pb-6 pt-6 rounded-md">
-            <h3 className="text-3xl text-left font-bold pl-3">New job offer <span className='text-gray-200 text-lg'>{`${getCurrentStepName()}`}</span></h3>
+            <div className='flex justify-between'>
+                <h3 className="text-3xl text-left font-bold pl-3">New job offer</h3>
+                <span className='inline-block text-gray-400 text-lg'>{`${getCurrentStepName()}`}</span>
+            </div>
             <div className="flex justify-between rounded p-3 mt-4">
                 <Step step={1} currentStep={step} />
                 <Step step={2} currentStep={step} />

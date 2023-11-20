@@ -175,6 +175,7 @@ const FormIndex: FC<Props> = ({
                             step={step}
                             setStep={setStep}
                             register={register}
+                            errors={errors}
                         />
                     ) : null}
                     {step === 3 ? (

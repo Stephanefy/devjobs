@@ -78,19 +78,19 @@ const LoginComponent = () => {
                     />
                 </div>
                 <div className="mt-3">
-                    <span className="text-white dark:text-black">
+                    <span className="text-white dark:text-black hover:text-app-violet">
                         <Link to="/signup">Don't have an account?</Link>
                     </span>
                 </div>
                 <p className='text-white'>
                     Can't login ?{' '}
-                    <span className="dark:text-black">
+                    <span className="dark:text-black hover:text-app-violet">
                         <Link to="/forgot-password">Reset your password?</Link>
                     </span>
                 </p>
                 {error ? (
                     <div>
-                        <p className="text-red-600">Error: {error}</p>
+                        <p className="text-red-600 ">Error: {error}</p>
                     </div>
                 ) : null}
             </form>

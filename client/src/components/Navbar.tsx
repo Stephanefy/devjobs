@@ -42,8 +42,8 @@ const Navbar = () => {
             <div className="pt-8 flex justify-between w-10/12 md:w-5/6 mx-auto md:max-w-6xl">
                 <div
                     className={classNames({
-                        'transition ease-in-out transform translate-x-24': littleStateMachineState.sidebarState?.status === 1 ,
-                        'transition ease-in-out transform translate-x-0': littleStateMachineState.sidebarState?.status === 0
+                        'transition ease-in-out transform translate-x-24': littleStateMachineState.sidebarState?.status === 1 && location.pathname === "dashboard" ,
+                        'transition ease-in-out transform translate-x-0': littleStateMachineState.sidebarState?.status === 0 && location.pathname === "dashboard" 
                         
                     })}
                 >
