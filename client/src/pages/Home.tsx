@@ -137,9 +137,10 @@ const Home = () => {
                 <Button
                     text1={'Load More'}
                     background="bg-app-violet"
-                    textColor="white"
+                    textColor="text-white"
                     paddingX="px-6"
                     paddingY="py-3"
+                    width='w-[200px]'
                 />
             </div>
             {openModal && <Modal 

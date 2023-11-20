@@ -63,7 +63,7 @@ function Step({ step, currentStep, setStep }: StepProps) {
                     },
                 }}
                 transition={{ duration: 0.2 }}
-                className={`relative flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold`}
+                className={`relative flex w-6 h-6 lg:h-10 lg:w-10 items-center justify-center rounded-full border-2 font-semibold`}
             >
                 <div
                     className="flex items-center justify-center"
@@ -71,7 +71,7 @@ function Step({ step, currentStep, setStep }: StepProps) {
                     // onClick={() => setStep(step)}
                 >
                     {status === 'complete' ? (
-                        <CheckIcon className="h-6 w-6 text-white" />
+                        <CheckIcon className="w-4 h-4 lg:h-6 lg:w-6 text-white" />
                     ) : (
                         <span>{step}</span>
                     )}

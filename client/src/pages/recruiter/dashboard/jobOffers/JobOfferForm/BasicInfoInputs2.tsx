@@ -18,7 +18,7 @@ const BasicInfoInputs2: FC<Props> = ({step, setStep, register}: Props): JSX.Elem
 
     return (
         <>
-            <div className="flex flex-col my-2 w-full">
+            <div className="flex flex-col justify-between my-2 w-full">
                 <label className="inline-block my-2 font-semibold">Location</label>
                 <input
                     type="text"

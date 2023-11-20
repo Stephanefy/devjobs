@@ -63,6 +63,16 @@ export function setCurrentStep(state: GlobalState, payload: number) {
   }
 }
 
+export function updateJobPostStatus(state: GlobalState, payload: number) {
+    return {
+      ...state,
+      formStep: {
+        isSuccess: payload === 1 && true,
+        isFailed: payload === 0 && false
+      }
+    }
+  }
+
 export function updateRequirements(state: GlobalState, payload: Requirements) {
 
 

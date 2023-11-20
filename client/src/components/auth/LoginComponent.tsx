@@ -1,4 +1,4 @@
-import Button  from '../Button'
+import Button from '../Button'
 import { useStateMachine } from 'little-state-machine'
 import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -16,8 +16,6 @@ const LoginComponent = () => {
         handleSubmit,
         formState: { errors },
     } = useForm()
-
-  
 
     const onSubmit = handleSubmit(async (data) => {
         console.log(data)
@@ -76,6 +74,7 @@ const LoginComponent = () => {
                         background="bg-app-violet"
                         paddingX="p-3"
                         paddingY="p-2"
+                        textColor="text-white"
                     />
                 </div>
                 <div className="mt-3">
@@ -83,15 +82,18 @@ const LoginComponent = () => {
                         <Link to="/signup">Don't have an account?</Link>
                     </span>
                 </div>
+                <p className='text-white'>
+                    Can't login ?{' '}
+                    <span className="dark:text-black">
+                        <Link to="/forgot-password">Reset your password?</Link>
+                    </span>
+                </p>
                 {error ? (
                     <div>
                         <p className="text-red-600">Error: {error}</p>
                     </div>
                 ) : null}
             </form>
-            <p>Can't login ? <span className="text-dark dark:text-black">
-                        <Link to="/forgot-password">Reset your password?</Link>
-            </span></p>
         </>
     )
 }

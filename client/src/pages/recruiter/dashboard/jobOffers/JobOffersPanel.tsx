@@ -1,22 +1,21 @@
-import { FC, useContext, useState, useEffect } from 'react'
-import { User } from '../../../../context/AuthContext'
-import { AuthContext } from '../../../../context/AuthContext'
+import { useStateMachine } from 'little-state-machine'
+import { FC, useContext, useEffect, useState } from 'react'
+import JobOffersTable from '../../../../components/JobOffersTable'
 import PortalModal from '../../../../components/modals/PortalModal'
+import { AuthContext } from '../../../../context/AuthContext'
+import { JobPost } from '../../../../types/global'
 import JobOfferModalContent from './JobOfferForm/JobOfferModalContent'
 import JobOfferUpdateModalContent from './JobOfferUpdate/JobOfferEditModalContent'
-import Card from './Card'
-import { JobPost } from '../../../../types/global'
-import JobOffersTable from '../../../../components/JobOffersTable'
-import Button from '../../../../components/Button'
-import { useStateMachine } from 'little-state-machine'
+import toast from 'react-hot-toast'
 
 interface Props {}
 
 const MainPanel: FC<Props> = (props): JSX.Element => {
     const { state: littleStateMachine, getState } = useStateMachine()
 
-    console.log('fdsfsd', getState())
 
+
+    console.log("littleStateMachine",littleStateMachine)
     const [openModal, setOpenModal] = useState<boolean>(false)
     const [openPanel2, setOpenPanel2] = useState<boolean>(false)
     const [postedJob, setPostedJob] = useState<JobPost[]>([])
@@ -33,9 +32,16 @@ const MainPanel: FC<Props> = (props): JSX.Element => {
             .then((data) => setPostedJob(data.data))
     }, [])
 
+
+    useEffect(() => {
+
+        littleStateMachine.formStep?.isSuccess && toast('Job post added with success', { icon: '✅'});
+        littleStateMachine.formStep?.isFailed && toast('There was an issue', { icon: '😔'});
+
+    }, [littleStateMachine.formStep])
+
     const { state } = useContext(AuthContext)
 
-    console.log('reached')
 
     return (
         <section className="min-h-screen w-10/12 my-8 bg-gray-200 pt-8 md:pl-8 lg:pl-16 lg:px-8">

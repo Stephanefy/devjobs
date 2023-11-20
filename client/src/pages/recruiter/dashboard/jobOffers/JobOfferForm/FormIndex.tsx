@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form'
 import {
     updateJobPost,
     updateRequirements,
+    updateJobPostStatus,
     updateRole,
     clearJobPost,
     setCurrentStep,
@@ -56,7 +57,11 @@ const FormIndex: FC<Props> = ({
         updateRole,
         clearJobPost,
         setCurrentStep,
+        updateJobPostStatus
     })
+
+
+    console.log("step", step)
 
     const {
         register,
@@ -88,9 +93,14 @@ const FormIndex: FC<Props> = ({
 
                 if (response.ok) {
                     setSuccess(true)
-                    sessionStorage.removeItem('__LSM__')
+                    actions.updateJobPostStatus(1)
+                    actions.clearJobPost()
+                    await sessionStorage.removeItem('__LSM__')
+                    setOpenModal(false)
                 }
-            } catch (error) {}
+            } catch (error) {
+                actions.updateJobPostStatus(0)
+            }
         }
 
         // check for step 4 and five of the wizard to use the proper update function
@@ -121,7 +131,7 @@ const FormIndex: FC<Props> = ({
     }
 
     useEffect(() => {
-        if (state.formStep) {
+        if (state.formStep?.step) {
             setStep(state.formStep.step + 1)
         }
     }, [])
@@ -150,9 +160,9 @@ const FormIndex: FC<Props> = ({
                 onSubmit={handleSubmit(onSubmit)}
                 className={`w-full ${
                     step === 1 || step === 6 ? 'pt-2 md:pt-0' : 'pt-6 md:pt-1'
-                } flex flex-col items-start justify-center overflow-auto`}
+                } flex flex-col items-start justify-between overflow-auto`}
             >
-                <div className="h-2/4 w-full my-auto px-3">
+                <div className="w-full my-auto px-3">
                     {step === 1 ? (
                         <BasicInfoInputs1
                             step={step}
@@ -190,7 +200,7 @@ const FormIndex: FC<Props> = ({
                     ) : null}
                     {step > 5 ? <JobDetailsRecap /> : null}
                 </div>
-                <div className="mt-32 flex-col space-y-3 w-full justify-between">
+                <div className="mt-5 flex-col space-y-3 w-full justify-between">
                     {step > 1 ? (
                         <div>
                             <button

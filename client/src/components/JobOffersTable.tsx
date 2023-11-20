@@ -16,7 +16,9 @@ const JobOffersTable: FC<Props> = (props): JSX.Element => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
-    const notify = () => toast("job offer deleted with success")
+    const notify = () => toast("job offer deleted with success", {
+        icon: '✅'
+    })
     
     const deleteJobPost = async (id: string) => {
         setIsLoading(true)
@@ -134,7 +136,21 @@ const JobOffersTable: FC<Props> = (props): JSX.Element => {
                     </div>
                 </div>
             </div>
-            <Toaster />
+            <Toaster
+             toastOptions={{
+                success: {
+                  style: {
+                    background: 'green',
+                  },
+                },
+                error: {
+                  style: {
+                    background: 'red',
+                  },
+                },
+              }}
+            
+            />
         </div>
     )
 }

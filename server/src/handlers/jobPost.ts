@@ -103,7 +103,11 @@ export const getAllJobPosts = async (
   next: NextFunction
 ) => {
   try {
-    const jobPosts = await prisma.jobPost.findMany();
+    const jobPosts = await prisma.jobPost.findMany({
+      orderBy: {
+        postedAt: "desc"
+      }
+    });
     res.status(200).json({ data: jobPosts });
   } catch (error) {
     next(error);

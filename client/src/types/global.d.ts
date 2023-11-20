@@ -17,8 +17,8 @@ export type Role = {
 export type JobPost = {
   id: string,
   company: string;
-  logo: string;
-  logoBackground: string;
+  logo?: string;
+  logoBackground?: string;
   postedAt: number;
   position: string;
   contract: string;
@@ -32,7 +32,9 @@ export type JobPost = {
 }
 
 export type FormStep = {
-  step: number
+  step?: number,
+  isSuccess?: boolean,
+  isFailed?: boolean
 }
 
 declare module 'little-state-machine' {

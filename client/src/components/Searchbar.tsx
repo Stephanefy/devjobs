@@ -1,7 +1,6 @@
 import { FormEvent, SetStateAction, useState } from 'react'
 import Button from './Button'
 
-
 type SearchBarProps = {
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
     filteredByTitle: Function
@@ -10,7 +9,13 @@ type SearchBarProps = {
     filterByAll: Function
 }
 
-function Searchbar({ setOpenModal, filteredByTitle, filterByLocation, filterByContract, filterByAll }: SearchBarProps) {
+function Searchbar({
+    setOpenModal,
+    filteredByTitle,
+    filterByLocation,
+    filterByContract,
+    filterByAll,
+}: SearchBarProps) {
     const [isFullTimeChecked, setIsFullTimeChecked] = useState<boolean>(false)
     const [jobTitle, setJobTitle] = useState<string>('')
     const [location, setLocation] = useState<string>('')
@@ -18,30 +23,36 @@ function Searchbar({ setOpenModal, filteredByTitle, filterByLocation, filterByCo
     const handleSearch = (e: FormEvent) => {
         e.preventDefault()
 
-
         console.log(isFullTimeChecked)
-        
+
         if (jobTitle.trim().length > 0) {
-            const titleTerms = jobTitle.split(" ")
+            const titleTerms = jobTitle.split(' ')
             filteredByTitle(titleTerms)
         }
 
         if (location.trim().length > 0) {
             filterByLocation(location)
         }
-        
+
         if (isFullTimeChecked) {
             filterByContract()
         }
 
-        if (jobTitle.trim().length === 0 && location.trim().length > 0 && isFullTimeChecked) {
+        if (
+            jobTitle.trim().length === 0 &&
+            location.trim().length > 0 &&
+            isFullTimeChecked
+        ) {
             filterByAll(isFullTimeChecked, location)
         }
 
-        if (jobTitle.trim().length > 0 && location.trim().length > 0 && isFullTimeChecked) {
-            filterByAll(isFullTimeChecked,location, jobTitle)
+        if (
+            jobTitle.trim().length > 0 &&
+            location.trim().length > 0 &&
+            isFullTimeChecked
+        ) {
+            filterByAll(isFullTimeChecked, location, jobTitle)
         }
-
     }
 
     return (
@@ -113,7 +124,9 @@ function Searchbar({ setOpenModal, filteredByTitle, filterByLocation, filterByCo
                             height={24}
                         />
                     </span>
-                    <label htmlFor="location" className="hidden">location</label>
+                    <label htmlFor="location" className="hidden">
+                        location
+                    </label>
                     <input
                         className="border-none w-full dark:bg-app-very-black-blue dark:text-white"
                         type="text"
@@ -124,7 +137,9 @@ function Searchbar({ setOpenModal, filteredByTitle, filterByLocation, filterByCo
                     />
                 </div>
                 <div className="hidden md:flex items-center px-3 w-2/12">
-                    <label htmlFor='isFullTime' className="hidden">contract</label>
+                    <label htmlFor="isFullTime" className="hidden">
+                        contract
+                    </label>
                     <input
                         className="hidden md:block border-none rounded-sm bg-app-light-grey w-5 h-5 mr-4"
                         type="checkbox"
@@ -135,8 +150,12 @@ function Searchbar({ setOpenModal, filteredByTitle, filterByLocation, filterByCo
                             setIsFullTimeChecked(!isFullTimeChecked)
                         }
                     />
-                    <span className="ml-2 font-bold dark:text-white">Full Time</span>
-                    <span className="hidden lg:inline-block ml-1 font-bold dark:text-white">Only</span>
+                    <span className="ml-2 font-bold dark:text-white">
+                        Full Time
+                    </span>
+                    <span className="hidden lg:inline-block ml-1 font-bold dark:text-white">
+                        Only
+                    </span>
                 </div>
                 <div className="hidden md:flex md:px-3 items-center">
                     <Button
@@ -145,7 +164,7 @@ function Searchbar({ setOpenModal, filteredByTitle, filterByLocation, filterByCo
                         background="bg-app-violet"
                         paddingX="px-6"
                         paddingY="py-2"
-                        textColor="white"
+                        textColor="text-white"
                     />
                 </div>
             </form>

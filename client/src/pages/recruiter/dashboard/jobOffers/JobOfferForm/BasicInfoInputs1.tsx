@@ -1,6 +1,7 @@
 import { FC, useRef } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 import { useStateMachine } from 'little-state-machine'
+import DragAndDropImgFile from '../../../../../components/forms/DragAndDropImgFile'
 
 interface Props {
     step: number
@@ -26,7 +27,7 @@ const BasicInfoInputs: FC<Props> = ({
                     Company information
                 </h4>
             </div> */}
-            <div className='mb-16'>
+            <div className='my-5'>
                 <div className="items-start justify-between w-full">
                     <label className="font-semibold">Company name</label>
                     <input
@@ -39,17 +40,17 @@ const BasicInfoInputs: FC<Props> = ({
                         })}
                     />
                 </div>
-                <div className="items-start justify-between my-2 w-full">
+                {/* <div className="items-start justify-between my-2 w-full">
                     <label className="my-2 font-semibold">Logo</label>
                     <input
                         type="text"
-                        required
-                        aria-required={true}
+                        aria-required={false}
                         className="w-full rounded-md border-0 p-3 mr-2 placeholder-gray-300 shadow"
                         {...register('logo', {
                             value: state.jobPost && state.jobPost.logo,
                         })}
                     />
+                    <DragAndDropImgFile/>
                 </div>
                 <div className="items-start justify-between my-2 w-full">
                     <label className="my-2 font-semibold">
@@ -65,7 +66,7 @@ const BasicInfoInputs: FC<Props> = ({
                                 state.jobPost && state.jobPost.logoBackground,
                         })}
                     />
-                </div>
+                </div> */}
                 <div className="md:flex-row  items-start justify-between my-2 w-full">
                     <label className="my-2 font-semibold">Position</label>
                     <input
