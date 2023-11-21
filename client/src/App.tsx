@@ -50,7 +50,7 @@ function App() {
             <StateMachineProvider>
                 <AuthContextProvder>
                     <GlobalContextProvider>
-                        <main className="relative min-h-full">
+                        <main className="relative min-h-full w-[100vw] flex justify-center flex-col">
                             <Navbar />
                             <Routes>
                                 <Route index element={<Home />} />
