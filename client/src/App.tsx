@@ -1,4 +1,5 @@
 import { StateMachineProvider } from 'little-state-machine'
+import './App.css'
 import { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'

@@ -15,9 +15,9 @@ const SeconStep = ({onstephandler}: Props) => {
 
 
   return (
-    <div className="text-white dark:text-gray-400">
+    <div className="text-white dark:text-gray-400 p-12">
         <h3>Are you a recruiter or a job seeker ?</h3>
-        <p>your email address: {state?.data?.email}</p>
+        <p className='text-white'>your email address: {state?.data?.email}</p>
     <div className='flex flex-col'>
         <button onClick={onstephandler} className='my-4 mt-6 bg-app-violet text-white rounded-lg p-2 '>
             Recruiter

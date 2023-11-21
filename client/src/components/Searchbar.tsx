@@ -200,6 +200,8 @@ function Searchbar({
                     <button
                         onClick={() => {
                             setJobData(jobsData)
+                            setLocation('')
+                            setJobTitle('')
                             setIsFullTimeChecked(false)
                         }}
                     >

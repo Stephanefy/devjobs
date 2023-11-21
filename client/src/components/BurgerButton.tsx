@@ -11,37 +11,35 @@ const BurgerButton = ({ open }: any) => {
                 <div
                     className={classNames(
                         `bg-white h-[2px] w-7`, {
-                        'transform transition-all duration-300 origin-left translate-y-6 delay-100': open,
-                        'transform transition-all duration-500 origin-left -translate-x-10 delay-100': open,
+                        'transform transition-all duration-1000 origin-left translate-y-6 translate-x-0': open,
+                        'transform transition-all duration-1000 origin-left translate-y-0 -translate-x-96': open,
                     })}
                 ></div>
                 <div
                     className={classNames('bg-white h-[2px] w-7 rounded', {
                         'transform transition-all duration-300 translate-y-6 delay-75':open,
-                        'transform transition-all duration-500 origin-left -translate-x-10 delay-100': open,
+                        'transform transition-all origin-left -translate-x-10 duration-300': open,
                     })}
                 ></div>
                 <div
                     className={classNames(`bg-white h-[2px] w-7`, {
-                        'transform transition-all duration-300 origin-left translate-y-6': open,
-                        'transform transition-all duration-500 origin-left -translate-x-10 delay-100': open,
+                        'transform transition-all duration-1000 origin-left translate-y-6 translate-x-0': open,
+                        'transform transition-all duration-1000 origin-left translate-y-0 -translate-x-96': open,
                     })}
                 ></div>
 
                 <div
-                    className={`absolute items-center justify-between transform transition-all duration-500 top-2.5 ${
-                        !open && '-translate-x-10'
-                    } ${open && 'translate-x-0'} flex ${!open && 'w-0'} ${
+                    className={`absolute items-center justify-between transform transition-all duration-300 top-2.5 ${open && 'translate-x-0'} flex ${!open && 'w-0'} ${
                         open && 'w-12'
                     }`}
                 >
                     <div
-                        className={`absolute bg-white h-[2px] w-5 transform transition-all duration-500 delay-300 ${
-                            open ? 'rotate-45' : 'rotate-0'
+                        className={`absolute bg-white h-[2px] w-5 transform transition-all duration-300 ${
+                            open ? 'rotate-45' : '-rotate-0'
                         }`}
                     ></div>
                     <div
-                        className={`absolute bg-white h-[2px] w-5 transform transition-all duration-500 delay-300 ${
+                        className={`absolute bg-white h-[2px] w-5 transform transition-all duration-300 ${
                             open ? '-rotate-45' : '-rotate-0'
                         }`}
                     ></div>

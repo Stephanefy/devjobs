@@ -40,7 +40,7 @@ const SignUp = () => {
         <div className='h-screen md:w-7/12 mx-auto flex justify-center items-center'>
             {/* Employer */}
             <div 
-            className='flex-col items-center md:w-6/12 mx-6 rounded-lg p-3 bg-app-very-black-blue dark:bg-app-light-grey'>
+            className='flex-col items-center md:w-8/12 mx-6 rounded-lg p-3 bg-app-very-black-blue dark:bg-app-light-grey'>
                 <h2 className='dark:text-gray-800 text-white text-center text-2xl my-3'>Create an account </h2>
                 {
                     step === 1 ? 

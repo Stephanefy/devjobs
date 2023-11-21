@@ -30,7 +30,7 @@ interface CardItem {
 
 function Cardlist({ jobData }: CardListProps) {
     return (
-        <ul className="mt-20 grid grid-cols-1 md:gap-x-[2rem] md:grid-cols-2 lg:grid-cols-3 lg:max-w-6xl mx-auto pl-10">
+        <ul className="mt-20 grid grid-cols-1 md:gap-x-[2rem] md:grid-cols-2 lg:grid-cols-3 lg:max-w-6xl mx-auto">
             {jobData?.length ? (
                 jobData.map((card) => <Carditem key={card.id} card={card} />)
             ) : (

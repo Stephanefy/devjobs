@@ -25,12 +25,12 @@ const FirstSteps = ({ onstephandler }: Props) => {
         <form 
         id="step-1"
         onSubmit={onSubmit}
-        className="">
+        className="p-8">
             <label htmlFor="email">
-                <span className="block text-gray-400">email</span>
+                <span className="block text-white mb-2">email</span>
             </label>
             <input
-                type="email"
+                type="Email address" 
                 className="w-full p-2 rounded-lg"
                 {...register('email',{ required: true })}
             />

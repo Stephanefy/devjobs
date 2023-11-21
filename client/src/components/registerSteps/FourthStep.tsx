@@ -25,7 +25,9 @@ const FourthStep = () => {
   return (
     <form 
     id="step-4"
-    onSubmit={onSubmit}>
+    onSubmit={onSubmit}
+    className="p-6 md:p-12"
+    >
 
         <h3 className="text-2xl text-white dark:text-gray-400">Employer</h3>
         <p>{state.data.email}</p>
