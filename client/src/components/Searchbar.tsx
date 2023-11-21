@@ -1,5 +1,14 @@
-import { FormEvent, SetStateAction, useState } from 'react'
+import {
+    Dispatch,
+    FormEvent,
+    SetStateAction,
+    useContext,
+    useEffect,
+    useState,
+} from 'react'
 import Button from './Button'
+import { JobPost } from '../types/global'
+import { JobContext } from '../context/JobContext'
 
 type SearchBarProps = {
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -7,6 +16,7 @@ type SearchBarProps = {
     filterByLocation: Function
     filterByContract: Function
     filterByAll: Function
+    setJobData: Dispatch<SetStateAction<JobPost[] | undefined>>
 }
 
 function Searchbar({
@@ -15,10 +25,14 @@ function Searchbar({
     filterByLocation,
     filterByContract,
     filterByAll,
+    setJobData,
 }: SearchBarProps) {
     const [isFullTimeChecked, setIsFullTimeChecked] = useState<boolean>(false)
+    const [isAllChecked, setIsAllChecked] = useState<boolean>(false)
     const [jobTitle, setJobTitle] = useState<string>('')
     const [location, setLocation] = useState<string>('')
+
+    const { jobsData } = useContext(JobContext)
 
     const handleSearch = (e: FormEvent) => {
         e.preventDefault()
@@ -54,6 +68,25 @@ function Searchbar({
             filterByAll(isFullTimeChecked, location, jobTitle)
         }
     }
+
+    // useEffect(() => {
+
+    //     setIsAllChecked(false)
+
+    //     if (isFullTimeChecked) {
+    //         filterByContract()
+    //         setJobTitle('')
+    //         setLocation('')
+    //     } else {
+    //         setJobData(jobsData)
+    //         setJobTitle('')
+    //         setLocation('')
+    //     }
+    // }, [isFullTimeChecked])
+
+    // useEffect(() => {
+    //     setIsFullTimeChecked(false)
+    // }, [isAllChecked])
 
     return (
         <div className="w-5/6 lg:max-w-6xl bg-white dark:bg-app-very-black-blue mx-auto rounded-lg absolute left-1/2 -translate-x-1/2 top-32">
@@ -136,7 +169,7 @@ function Searchbar({
                         onChange={(e) => setLocation(e.target.value)}
                     />
                 </div>
-                <div className="hidden md:flex items-center px-3 w-2/12">
+                <div className="hidden md:flex items-center px-3 w-3/12">
                     <label htmlFor="isFullTime" className="hidden">
                         contract
                     </label>
@@ -146,9 +179,12 @@ function Searchbar({
                         id="isFullTime"
                         name="isFullTime"
                         checked={isFullTimeChecked}
-                        onChange={() =>
+                        onChange={() => {
                             setIsFullTimeChecked(!isFullTimeChecked)
-                        }
+                            isFullTimeChecked
+                                ? setJobData(jobsData)
+                                : filterByContract()
+                        }}
                     />
                     <span className="ml-2 font-bold dark:text-white">
                         Full Time
@@ -156,6 +192,33 @@ function Searchbar({
                     <span className="hidden lg:inline-block ml-1 font-bold dark:text-white">
                         Only
                     </span>
+                </div>
+                <div className="hidden md:flex items-center px-3 w-2/12">
+                    <label htmlFor="isFullTime" className="hidden">
+                        All
+                    </label>
+                    <button
+                        onClick={() => {
+                            setJobData(jobsData)
+                            setIsFullTimeChecked(false)
+                        }}
+                    >
+                        <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M12 10.2623L18.0123 4.25L19.75 5.98775L13.7377 12L19.75 18.0123L18.0123 19.75L12 13.7377L5.98775 19.75L4.25 18.0123L10.2623 12L4.25 5.98775L5.98775 4.25L12 10.2623Z"
+                                fill="#141B34"
+                            />
+                        </svg>
+                    </button>
+                    <span className="ml-2 font-bold dark:text-white">All</span>
                 </div>
                 <div className="hidden md:flex md:px-3 items-center">
                     <Button

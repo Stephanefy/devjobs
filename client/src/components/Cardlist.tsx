@@ -34,7 +34,7 @@ function Cardlist({ jobData }: CardListProps) {
             {jobData?.length ? (
                 jobData.map((card) => <Carditem key={card.id} card={card} />)
             ) : (
-                <div className="col-start-2">
+                <div className="col-start-2 place-self-center">
                     <h4 className="mx-auto dark:text-white">
                         No results found sorry 🥲
                     </h4>
