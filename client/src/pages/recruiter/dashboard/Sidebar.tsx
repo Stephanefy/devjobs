@@ -4,7 +4,11 @@ import { useLogout } from '../../../hooks/useLogout'
 import { updateSidebarState } from '../../../utils/updateAction'
 import { useStateMachine } from 'little-state-machine'
 
-interface Props {}
+
+
+interface Props {
+    role: 'JOB_SEEKER' | 'EMPLOYER' | string
+}
 
 const Sidebar: FC<Props> = (props): JSX.Element => {
     const [fullWidth, setFullWidth] = useState<boolean>(true)

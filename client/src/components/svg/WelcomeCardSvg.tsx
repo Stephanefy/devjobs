@@ -3,9 +3,9 @@ import * as React from "react"
 const SvgComponent = (props: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={250}
+    width={600}
     height={300}
-    viewBox="40 80 600 400"
+    viewBox="0 -100 1100 800"
     {...props}
   >
     <g fill="#f2f2f2">

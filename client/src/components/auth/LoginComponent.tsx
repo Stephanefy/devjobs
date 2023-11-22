@@ -6,6 +6,9 @@ import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import { useSignIn } from '../../hooks/useSignIn'
 
+
+const roles = ['JOB_SEEKER', 'EMPLOYER']
+
 const LoginComponent = () => {
     const { signIn, error, isSuccess } = useSignIn()
     const { state } = useContext(AuthContext)
@@ -28,13 +31,13 @@ const LoginComponent = () => {
     })
 
     useEffect(() => {
-        if (state.user!.role === 'EMPLOYER') {
+        if (roles.includes(state.user!.role)) {
             navigate('/dashboard/main')
         }
     }, [])
 
     useEffect(() => {
-        if (isSuccess && state.user!.role === 'EMPLOYER') {
+        if (roles.includes(state.user!.role)) {
             navigate('/dashboard/main')
         }
     }, [state])

@@ -1,21 +1,33 @@
-import { FC } from 'react';
-import SvgComponent from '../../../../components/svg/WelcomeCardSvg';
+import { FC, useContext } from 'react'
+import SvgComponent from '../../../../components/svg/WelcomeCardSvg'
+import { AuthContext } from '../../../../context/AuthContext'
+import EmployerWelcomeCard from './EmployerWelcomeCard'
+import JobSeekerWelcomeCard from './JobSeekerWelcomeCard'
 
 interface Props {
-  postedJobCount: number
+    postedJobCount: number
 }
 
 const WelcomeCard: FC<Props> = (props: Props): JSX.Element => {
-  return <div className='bg-app-light-violet p-6 rounded-lg w-12/12 flex'>
-    <div className='basis-6/12 space-y-10 md:space-y-20'>
-        <h1 className='text-white text-3xl'>Welcome to your dashboard</h1>
-        <p className='text-white'>You have posted {props.postedJobCount} job posts</p>
-        <p className='text-white'>You have 0 job application</p>
-    </div>
-    <div className='hidden md:block md:basis-6/12'>
-        <SvgComponent/>
-    </div>
-  </div>;
-};
 
-export default WelcomeCard;
+    const { state } = useContext(AuthContext)
+
+
+
+    return (
+        <div className="bg-gray-100 p-6 rounded-lg w-12/12 flex">
+            {
+              state?.user!.role === "EMPLOYER" ? (
+                <EmployerWelcomeCard postedJobCount={props.postedJobCount}/>
+              ) : (
+                <JobSeekerWelcomeCard/>
+              )
+            }
+            <div className="hidden md:block md:basis-6/12">
+                <SvgComponent />
+            </div>
+        </div>
+    )
+}
+
+export default WelcomeCard

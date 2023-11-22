@@ -13,17 +13,15 @@ import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
-import MainDashBoardEmployer from './pages/recruiter/dashboard/MainDashboardEmployer'
+import MainDashBoard from './pages/recruiter/dashboard/MainDashboard'
 import JobOffersPanel from './pages/recruiter/dashboard/jobOffers/JobOffersPanel'
 import MainPanel from './pages/recruiter/dashboard/main/MainPanel'
 import checkExpiryDate from './utils/checkExpiryData'
 
 function App() {
-
-
     useEffect(() => {
         let isNotExpired = checkExpiryDate()
-        let userObj = localStorage.getItem("user");
+        let userObj = localStorage.getItem('user')
         let userId = userObj && JSON.parse(userObj).id
 
         async function revalidateToken(id: string) {
@@ -33,17 +31,18 @@ function App() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    userId: id 
+                    userId: id,
                 }),
-                credentials: 'include'
+                credentials: 'include',
             })
 
             return response
         }
         if (isNotExpired) {
-            revalidateToken(userId).then(res => res.json()).then(data => console.log(data))
+            revalidateToken(userId)
+                .then((res) => res.json())
+                .then((data) => console.log(data))
         }
-
     }, [])
 
     return (
@@ -58,8 +57,14 @@ function App() {
                                 <Route path="job/:id" element={<Detail />} />
                                 <Route path="login" element={<Login />} />
                                 <Route path="signup" element={<SignUp />} />
-                                <Route path="forgot-password" element={<ForgotPassword />} />
-                                <Route path="reset-password/:resetKey" element={<ResetPassword />} />
+                                <Route
+                                    path="forgot-password"
+                                    element={<ForgotPassword />}
+                                />
+                                <Route
+                                    path="reset-password/:resetKey"
+                                    element={<ResetPassword />}
+                                />
                                 <Route
                                     path="confirm-signup"
                                     element={<ConfirmSignup />}
@@ -67,19 +72,21 @@ function App() {
                                 {/*these routes are protected */}
                                 <Route
                                     element={
-                                        <Auth allowedRoles={['EMPLOYER']} />
+                                        <Auth allowedRoles={['EMPLOYER','JOB_SEEKER']} />
                                     }
                                 >
                                     <Route
                                         path="dashboard"
-                                        element={<MainDashBoardEmployer />}
+                                        element={<MainDashBoard />}
                                     >
-                                        <Route path="main" element={<MainPanel/>} />
-                                        <Route path="job-offers" element={<JobOffersPanel/>}>
-                                        
-                                        
-                                        </Route>
-
+                                        <Route
+                                            path="main"
+                                            element={<MainPanel />}
+                                        />
+                                        <Route
+                                            path="job-offers"
+                                            element={<JobOffersPanel />}
+                                        ></Route>
                                     </Route>
                                 </Route>
                                 <Route path="/*" element={<h1>404</h1>} />

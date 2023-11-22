@@ -9,7 +9,7 @@ export type User = {
         id: number,
         message: string,
         email: string,
-        role: string,
+        role: "JOB_SEEKER" | "EMPLOYER" | string,
 }
 
 export type AuthReducerState = {
