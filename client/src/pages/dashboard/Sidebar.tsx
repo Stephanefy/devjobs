@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useLogout } from '../../../hooks/useLogout'
-import { updateSidebarState } from '../../../utils/updateAction'
+import { useLogout } from '../../hooks/useLogout'
+import { updateSidebarState } from '../../utils/updateAction'
 import { useStateMachine } from 'little-state-machine'
 
 interface Props {
@@ -86,7 +86,7 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                 `}
                     >
                         <Link
-                            to="job-offers"
+                            to="job-applications"
                             className="pl-3 flex gap-x-6  cursor-pointer dark:text-white hover:text-indigo-800 w-full hover:ease-in transition duration-150 group"
                         >
                             <svg

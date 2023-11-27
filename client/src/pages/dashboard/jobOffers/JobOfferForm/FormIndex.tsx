@@ -21,10 +21,10 @@ import {
     updateRole,
     clearJobPost,
     setCurrentStep,
-} from '../../../../../utils/updateAction'
+} from '../../../../utils/updateAction'
 import { useStateMachine } from 'little-state-machine'
-import { isEmptyObject } from '../../../../../utils/isEmptyObject'
-import Button from '../../../../../components/Button'
+import { isEmptyObject } from '../../../../utils/isEmptyObject'
+import Button from '../../../../components/Button'
 
 interface Props {
     step: number

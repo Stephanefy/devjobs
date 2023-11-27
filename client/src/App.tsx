@@ -13,9 +13,10 @@ import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
-import MainDashBoard from './pages/recruiter/dashboard/MainDashboard'
-import JobOffersPanel from './pages/recruiter/dashboard/jobOffers/JobOffersPanel'
-import MainPanel from './pages/recruiter/dashboard/main/MainPanel'
+import MainDashBoard from './pages/dashboard/MainDashboard'
+import JobOffersPanel from './pages/dashboard/jobOffers/JobOffersPanel'
+import JobApplicationPanel from './pages/dashboard/jobApplications/JobApplicationPanel'
+import MainPanel from './pages/dashboard/main/MainPanel'
 import checkExpiryDate from './utils/checkExpiryData'
 
 function App() {
@@ -72,7 +73,12 @@ function App() {
                                 {/*these routes are protected */}
                                 <Route
                                     element={
-                                        <Auth allowedRoles={['EMPLOYER','JOB_SEEKER']} />
+                                        <Auth
+                                            allowedRoles={[
+                                                'EMPLOYER',
+                                                'JOB_SEEKER',
+                                            ]}
+                                        />
                                     }
                                 >
                                     <Route
@@ -84,9 +90,13 @@ function App() {
                                             element={<MainPanel />}
                                         />
                                         <Route
+                                            path="job-applications"
+                                            element={<JobApplicationPanel />}
+                                        />
+                                        <Route
                                             path="job-offers"
                                             element={<JobOffersPanel />}
-                                        ></Route>
+                                        />
                                     </Route>
                                 </Route>
                                 <Route path="/*" element={<h1>404</h1>} />

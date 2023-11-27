@@ -3,7 +3,7 @@ import RequirementsAndRoleItem from './RequirementsAndRoleItem'
 import { nanoid } from 'nanoid'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 import { useStateMachine } from 'little-state-machine'
-import setDefaultRequirementsItems from '../../../../../utils/setDefaultRequirementsItems'
+import setDefaultRequirementsItems from '../../../../utils/setDefaultRequirementsItems'
 interface Props {
     step: number
     setStep: (step: number) => void

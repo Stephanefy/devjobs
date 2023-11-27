@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction } from 'react'
 import FormIndex from './FormIndex'
 import { useState } from 'react'
-import Step from '../../../../../components/Step'
+import Step from '../../../../components/Step'
 
 interface Props {
     setOpenModal: Dispatch<SetStateAction<boolean>>

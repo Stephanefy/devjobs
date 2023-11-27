@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { JobPost, Requirements } from '../../../../../types/global'
+import { JobPost, Requirements } from '../../../../types/global'
 
 interface Props {
     selectedJobId: string

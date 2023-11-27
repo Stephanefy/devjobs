@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react'
-import SvgComponent from '../../../../components/svg/WelcomeCardSvg'
-import { AuthContext } from '../../../../context/AuthContext'
+import SvgComponent from '../../../components/svg/WelcomeCardSvg'
+import { AuthContext } from '../../../context/AuthContext'
 import EmployerWelcomeCard from './EmployerWelcomeCard'
 import JobSeekerWelcomeCard from './JobSeekerWelcomeCard'
 

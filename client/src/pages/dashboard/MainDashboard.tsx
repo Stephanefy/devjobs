@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useState } from 'react'
 import Sidebar from './Sidebar'
-import { AuthContext } from '../../../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 import { Outlet } from 'react-router-dom'
 import { useStateMachine } from 'little-state-machine'
 import classNames from 'classnames'

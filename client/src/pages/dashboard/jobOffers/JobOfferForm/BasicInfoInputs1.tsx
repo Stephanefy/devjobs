@@ -1,7 +1,7 @@
 import { FC, useRef, useState } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 import { useStateMachine } from 'little-state-machine'
-import DragAndDropImgFile from '../../../../../components/forms/DragAndDropImgFile'
+import DragAndDropImgFile from '../../../../components/forms/DragAndDropImgFile'
 
 interface Props {
     step: number

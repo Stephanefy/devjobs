@@ -1,16 +1,16 @@
 import { useStateMachine } from 'little-state-machine'
 import { FC, useContext, useEffect, useState } from 'react'
-import JobOffersTable from '../../../../components/JobOffersTable'
-import PortalModal from '../../../../components/modals/PortalModal'
-import { AuthContext } from '../../../../context/AuthContext'
-import { JobPost } from '../../../../types/global'
+import JobOffersTable from '../../../components/JobOffersTable'
+import PortalModal from '../../../components/modals/PortalModal'
+import { AuthContext } from '../../../context/AuthContext'
+import { JobPost } from '../../../types/global'
 import JobOfferModalContent from './JobOfferForm/JobOfferModalContent'
 import JobOfferUpdateModalContent from './JobOfferUpdate/JobOfferEditModalContent'
 import toast from 'react-hot-toast'
 
 interface Props {}
 
-const MainPanel: FC<Props> = (props): JSX.Element => {
+const JobOffersPanel: FC<Props> = (props): JSX.Element => {
     const { state: littleStateMachine, getState } = useStateMachine()
 
 
@@ -83,4 +83,4 @@ const MainPanel: FC<Props> = (props): JSX.Element => {
     )
 }
 
-export default MainPanel
+export default JobOffersPanel

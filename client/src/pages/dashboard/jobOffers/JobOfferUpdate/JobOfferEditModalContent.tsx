@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import FormIndex from './FormIndex'
 import { useState } from 'react'
-import Button from '../../../../../components/Button'
+import Button from '../../../../components/Button'
 
 interface Props {
     selectedJobId: string
