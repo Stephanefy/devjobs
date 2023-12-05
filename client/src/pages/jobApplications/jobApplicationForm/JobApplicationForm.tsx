@@ -1,18 +1,32 @@
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 // import { Uploader, UploadButton } from 'react-uploader';
+import { useQuery } from 'react-query'
+import { getJob } from '../../../api/jobs'
+import { useLocation } from 'react-router-dom'
+import axios from 'axios'
+import { JobPost } from '../../../types/global'
 
 type FormValues = {
     name: string
     email: string
     phone: string
     resume: FileList
-    coverLetter: string
+    coverLetter: FileList
+    message: string,
+}
+
+interface JobApplicationFormProps {
+    jobData: any
 }
 
 // const uploader = Uploader({ apiKey: "free" });
 
-const JobApplicationForm: React.FC = () => {
+const JobApplicationForm = ({
+    jobData,
+}: {
+    jobData: JobApplicationFormProps
+}) => {
     const {
         register,
         handleSubmit,
@@ -75,51 +89,74 @@ const JobApplicationForm: React.FC = () => {
                 </label>
                 <input
                     {...register('phone', { required: 'Required' })}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="phone"
                     type="text"
                     placeholder="Phone Number"
                 />
                 {errors.phone && <p>{errors.phone.message}</p>}
             </div>
-            <div className="mb-4">
-                <label
+            <div className='mb-4'>
+            <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="resume"
+                    htmlFor="message"
                 >
-                    Resume
-                    <input
-                        {...register('resume', { required: 'Required' })}
-                        className="appearance-none flex text-gray-700 px-1 mt-2 file:py-2 w-full
-                            file:border-0 justify-center
-                            file:text-lg file:font-semibold
-                            file:bg-violet-50 file:text-violet-700
-                            hover:file:bg-violet-100"
-                        id="resume"
-                        type="file"
-                    />
+                    Further details
                 </label>
-                {errors.resume && <p>{errors.resume.message}</p>}
-            </div>
-            <div className="mb-4">
-                <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="coverLetter"
-                >
-                    Cover Letter
-                </label>
-                <input
-                    type="file"
-                    {...register('coverLetter', { required: 'Required' })}
-                    className="appearance-none block  text-gray-700 px-1 mt-2 file:py-2 w-full
-                    file:border-0
-                    file:text-lg file:font-semibold
-                    file:bg-violet-50 file:text-violet-700
-                    hover:file:bg-violet-100"
-                    id="coverLetter"
-                    placeholder="Cover Letter"
+                <textarea
+                    {...register('message', { required: 'Required' })}
+                    className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
+                    id="message"
+                    cols={8}
+                    rows={5}
+                    placeholder="Further details"
                 />
-                {errors.coverLetter && <p>{errors.coverLetter.message}</p>}
+                {errors.phone && <p>{errors.phone.message}</p>}
+            </div>
+            <div className="flex">
+                <div className="mb-4">
+                    <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="resume"
+                    >
+                        Resume
+                        <input
+                            {...register('resume', { required: false })}
+                            className="appearance-none flex text-gray-700 px-1 mt-2 file:py-2 
+                                file:border-0 justify-center
+                                file:text-lg file:font-semibold
+                                file:bg-violet-50 file:text-violet-700
+                                hover:file:bg-violet-100
+                                focus:outline-none 
+                                "
+                            id="resume"
+                            type="file"
+                        />
+                    </label>
+                    {errors.resume && <p>{errors.resume.message}</p>}
+                </div>
+                <div className="mb-4">
+                    <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="coverLetter"
+                    >
+                        Cover Letter
+                    </label>
+                    <input
+                        type="file"
+                        {...register('coverLetter', { required: false })}
+                        className="appearance-none block  text-gray-700 px-1 mt-2 file:py-2
+                        file:border-0
+                        file:text-lg file:font-semibold
+                        file:bg-violet-50 file:text-violet-700
+                        hover:file:bg-violet-100
+                        focus:outline-none 
+                        "
+                        id="coverLetter"
+                        placeholder="Cover Letter"
+                    />
+                    {errors.coverLetter && <p>{errors.coverLetter.message}</p>}
+                </div>
             </div>
             <div className="flex items-center justify-between mt-2">
                 <button

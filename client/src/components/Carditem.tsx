@@ -3,6 +3,8 @@ import { JobContext } from "../context/JobContext"
 import { JobPost } from "../types/global";
 import { useNavigate } from "react-router-dom";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import { AuthContext } from "../context/AuthContext";
+import Button from "./Button";
 export type CardItemProps = {
   card : JobPost
 }
@@ -10,9 +12,13 @@ export type CardItemProps = {
 function Carditem({card} : CardItemProps) {
 
 
-  console.log('jfkdjsk',card)
 
   const context = useContext(JobContext)
+  const authState = useContext(AuthContext)
+
+  const { user } = authState.state
+
+  console.log("user", user)
   const navigate = useNavigate()
 
   const handleNavigateToDetail = (id: string) => {
@@ -25,7 +31,7 @@ function Carditem({card} : CardItemProps) {
 
   return (
     <li 
-    className="relative w-[250px] place-self-center lg:w-[350px] md:h-[228px] mt-16 py-4 md:py-8 px-2 lg:px-8 bg-white rounded-xl cursor-pointer dark:bg-app-very-black-blue "
+    className="relative w-[250px] place-self-center lg:w-[350px] md:h-[300px] mt-16 py-4 md:py-8 px-2 lg:px-8 bg-white rounded-xl cursor-pointer dark:bg-app-very-black-blue"
     onClick={() => handleNavigateToDetail(card.id)}
     >
       <div className="absolute w-[50px] place-self-center h-[50px] -top-6 flex justify-center items-center rounded-2xl" style={{backgroundColor: card.logoBackground}}>
@@ -45,6 +51,21 @@ function Carditem({card} : CardItemProps) {
       <div className="mt-8">
         <span className="text-app-violet">{card.location}</span>
       </div>
+      {
+        user?.role === "JOB_SEEKER" ? (
+          <div className="mt-5">
+              <Button
+                text1="Apply"
+                text2="Now"
+                background="bg-app-violet"
+                textColor="text-white"
+                paddingX="px-6"
+                paddingY="py-2"
+                // onClick={() => context.applyForJob(card.id)}
+              >Apply</Button>
+          </div>
+        ) : null
+      }
     </li>
   )
 }

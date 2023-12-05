@@ -15,7 +15,7 @@ function Footer({currentJob}: any) {
             text1='Apply'
             text2='Now'
             background='bg-app-violet'
-            textColor='white'  
+            textColor='text-white'  
             paddingX='px-6'
             paddingY='py-2'
           />

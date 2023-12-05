@@ -39,6 +39,8 @@ export const protect = async (req: Request, res: Response, next: NextFunction) =
     // case with token in cookie
     const token = req.cookies.access_token;
 
+    console.log("token", token)
+
 
     if (!token) {
         return res.status(401).json({ error: 'Unauthorized' });

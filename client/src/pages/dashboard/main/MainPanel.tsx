@@ -6,25 +6,31 @@ import { User } from '../../../context/AuthContext'
 import { AuthContext } from '../../../context/AuthContext'
 import { useStateMachine } from 'little-state-machine'
 import classNames from 'classnames'
+import { useQuery } from 'react-query'
+import { getJobPostsCount } from '../../../api/jobs'
 
 interface Props {}
 
 const MainPanel: FC<Props> = (props): JSX.Element => {
     const { state: littleStateMachineState } = useStateMachine()
+    const { data, error } = useQuery('user',  () => getJobPostsCount())
+
+
+    console.log("count ",data)
 
     const { state } = useContext(AuthContext)
 
     const [postedJobCount, setPostedJobCount] = useState<number>(0)
 
-    useEffect(() => {
-        fetch('/api/jobPost/posted-count', { credentials: 'include' })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log('data', data)
-                setPostedJobCount(data.count)
-            })
-            .catch((err) => console.log(err))
-    }, [])
+    // useEffect(() => {
+    //     fetch('/api/jobPost/posted-count', { credentials: 'include' })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             console.log('data', data)
+    //             setPostedJobCount(data.count)
+    //         })
+    //         .catch((err) => console.log(err))
+    // }, [])
 
     return (
         <section
@@ -37,7 +43,7 @@ const MainPanel: FC<Props> = (props): JSX.Element => {
             )}
         >
             <h1 className="text-3xl mb-12 font-bold">Hello {state.user!.email} </h1>
-            <WelcomeCard postedJobCount={postedJobCount} />
+            <WelcomeCard postedJobCount={data?.count} />
             <div className="mt-6 w-full flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 gap-x-4 pb-16">
                 <StatsApplicants />
                 <StatsJobfield />

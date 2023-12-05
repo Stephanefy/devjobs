@@ -34,11 +34,11 @@ function Button({
     return (
         <button
             type={buttonType}
-            className={`${width} ${background} ${paddingX} ${paddingY} rounded-md ${textColor} dark:text-white cursor-pointer hover:opacity-70 transition ease-in 300s`}
+            className={`${width} ${background} ${paddingX} ${paddingY} rounded-md ${textColor} dark:text-white cursor-pointer hover:opacity-70 transition ease-in 300s flex items-center justify-center`}
             onClick={onClick}
         >
-            <span className="text-base mr-1 font-semibold">{text1}</span>
-            <span className="text-base font-semibold">{text2}</span>
+            <span className="inline-block text-base mr-1 font-semibold">{text1}</span>
+            <span className="inline-block text-base font-semibold">{text2}</span>
         </button>
     )
 }

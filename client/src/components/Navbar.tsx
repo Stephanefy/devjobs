@@ -10,6 +10,7 @@ import { Menu } from '@headlessui/react'
 import SunMoonButton from './SunMoonButton'
 import { useStateMachine } from 'little-state-machine'
 import classNames from 'classnames'
+import Logo from './Logo'
 
 const Navbar = () => {
     const { state } = useContext(AuthContext)
@@ -42,7 +43,9 @@ const Navbar = () => {
                     : "h-40 bg-[url('/assets/desktop/bg-pattern-header.svg')] bg-no-repeat bg-cover"
             } `}
         >
-            <div className="pt-8 flex justify-between w-10/12 md:w-5/6 mx-auto md:max-w-6xl">
+            <div className={classNames(`flex justify-between w-10/12 md:w-5/6 mx-auto md:max-w-6xl`, {
+                'pt-4': !location.pathname.match(regex)
+            })}>
                 <div
                     className={classNames({
                         'transition ease-in-out transform translate-x-24': littleStateMachineState.sidebarState?.status === 1 && location.pathname.match(regex), 
@@ -52,12 +55,12 @@ const Navbar = () => {
                 >
                     <h1>
                         <Link to="/">
-                            <img src={logo} alt="logo" />
+                            <Logo/>
                         </Link>
                     </h1>
                 </div>
 
-                <div className="flex items-start justify-end space-x-4 md:w-3/12 h-full">
+                <div className="flex items-start justify-end space-x-4 md:w-3/12 h-full pt-4">
                     {state.user?.id !== 0 ? (
                         <div className="hidden md:flex space-x-6">
                             <button

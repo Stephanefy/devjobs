@@ -1,8 +1,22 @@
+import { useContext } from 'react'
 import Button from './Button'
-
+import { AuthContext } from '../context/AuthContext'
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function Body({currentJob} : any) {
+
+
+  const { state } = useContext(AuthContext);
+  const { user } = state;
+  const navigate = useNavigate()
+
+  const navigateToApplicationForm = (id: string) => {
+    navigate(`/job-applications`, {state: {jobId: id}})
+  }
+
+
   return (
     <section className=" lg:w-[700px] bg-white dark:bg-app-very-black-blue rounded-md mx-auto mt-56 px-10 py-10 text-app-gray">
       <div>
@@ -15,20 +29,31 @@ function Body({currentJob} : any) {
           <h3 className='text-black dark:text-white text-3xl font-semibold'>{currentJob.position}</h3>
           <p className='text-app-violet'>{currentJob.location}</p>
         </div>
-        <div className='hidden md:block'>
-          <Button 
-            text1='Apply'
-            text2='Now'
-            background='bg-app-violet'
-            textColor='white'  
-            paddingX='px-6'
-            paddingY='py-2'
-          />
-        </div>
-        <button className={`block md:hidden w-full px-6 py-2 bg-app-violet rounded-md text-white mt-2`}>
-          <span className="text-base mr-1 font-semibold">Apply</span>
-          <span className="text-base font-semibold">Now</span>
-        </button>
+        {
+          user?.role === "JOB_SEEKER" ? (
+          <div className='hidden md:block'>
+            <Button 
+              text1='Apply'
+              text2='Now'
+              background='bg-app-violet'
+              textColor='text-white'  
+              paddingX='px-6'
+              paddingY='py-2'
+              onClick={() => navigateToApplicationForm(currentJob.id)}
+            />
+          </div>
+
+          ) : null
+        }
+        {
+          user?.role === "JOB_SEEKER" ? (
+            <button className={`block md:hidden w-full px-6 py-2 bg-app-violet rounded-md text-white mt-2`} onClick={() => navigateToApplicationForm(currentJob.id)}>
+                <span className="text-base mr-1 font-semibold">Apply</span>
+                <span className="text-base font-semibold">Now</span>
+          </button>
+          ) : null
+        }
+  
       </div>
       <div className='mt-8'>
           <p>

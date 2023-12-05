@@ -49,7 +49,7 @@ const LoginComponent = () => {
             </h2>
             <form
                 onSubmit={onSubmit}
-                className="md:w-5/12 mx-6 rounded-lg p-6 md:p-12 bg-app-very-black-blue dark:bg-app-light-grey h-3/5"
+                className="md:w-5/12 mx-6 rounded-lg p-6 md:p-12 bg-app-very-black-blue dark:bg-app-light-grey h-4/5"
             >
                 {' '}
                 <div>

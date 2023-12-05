@@ -11,7 +11,7 @@ const router = Router();
 router.post('/jobPost', createNewJobPost)
 router.get('/jobPost/posted-count', getPostedJobpostsCount)
 router.get('/jobPost', getAllJobPostsCreatedBy)
-router.get('/jobPost/:id', getJobPostDetail)
+router.get('/job/:id', getJobPostDetail)
 router.delete('/jobPost/:id', deletejobpost)
 
 /**

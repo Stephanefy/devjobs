@@ -15,11 +15,14 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import MainDashBoard from './pages/dashboard/MainDashboard'
 import JobOffersPanel from './pages/dashboard/jobOffers/JobOffersPanel'
-import JobApplicationPanel from './pages/dashboard/jobApplications/JobApplicationPanel'
+import JobApplicationPanel from './pages/jobApplications/JobApplicationPanel'
 import MainPanel from './pages/dashboard/main/MainPanel'
 import checkExpiryDate from './utils/checkExpiryData'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 function App() {
+    const client = new QueryClient()
+
     useEffect(() => {
         let isNotExpired = checkExpiryDate()
         let userObj = localStorage.getItem('user')
@@ -48,63 +51,69 @@ function App() {
 
     return (
         <BrowserRouter>
-            <StateMachineProvider>
-                <AuthContextProvder>
-                    <GlobalContextProvider>
-                        <main className="relative min-h-full w-[100vw] flex justify-center flex-col">
-                            <Navbar />
-                            <Routes>
-                                <Route index element={<Home />} />
-                                <Route path="job/:id" element={<Detail />} />
-                                <Route path="login" element={<Login />} />
-                                <Route path="signup" element={<SignUp />} />
-                                <Route
-                                    path="forgot-password"
-                                    element={<ForgotPassword />}
-                                />
-                                <Route
-                                    path="reset-password/:resetKey"
-                                    element={<ResetPassword />}
-                                />
-                                <Route
-                                    path="confirm-signup"
-                                    element={<ConfirmSignup />}
-                                />
-                                {/*these routes are protected */}
-                                <Route
-                                    element={
-                                        <Auth
-                                            allowedRoles={[
-                                                'EMPLOYER',
-                                                'JOB_SEEKER',
-                                            ]}
-                                        />
-                                    }
-                                >
+            <QueryClientProvider client={client}>
+                <StateMachineProvider>
+                    <AuthContextProvder>
+                        <GlobalContextProvider>
+                            <main className="relative min-h-full w-[100vw] flex justify-center flex-col">
+                                <Navbar />
+                                <Routes>
+                                    <Route index element={<Home />} />
                                     <Route
-                                        path="dashboard"
-                                        element={<MainDashBoard />}
+                                        path="job/:id"
+                                        element={<Detail />}
+                                    />
+                                    <Route path="login" element={<Login />} />
+                                    <Route path="signup" element={<SignUp />} />
+                                    <Route
+                                        path="forgot-password"
+                                        element={<ForgotPassword />}
+                                    />
+                                    <Route
+                                        path="reset-password/:resetKey"
+                                        element={<ResetPassword />}
+                                    />
+                                    <Route
+                                        path="confirm-signup"
+                                        element={<ConfirmSignup />}
+                                    />
+                                    {/*these routes are protected */}
+                                    <Route
+                                        element={
+                                            <Auth
+                                                allowedRoles={[
+                                                    'EMPLOYER',
+                                                    'JOB_SEEKER',
+                                                ]}
+                                            />
+                                        }
                                     >
                                         <Route
-                                            path="main"
-                                            element={<MainPanel />}
-                                        />
+                                            path="dashboard"
+                                            element={<MainDashBoard />}
+                                        >
+                                            <Route
+                                                path="main"
+                                                element={<MainPanel />}
+                                            />
+
+                                            <Route
+                                                path="job-offers"
+                                                element={<JobOffersPanel />}
+                                            />
+                                        </Route>
                                         <Route
                                             path="job-applications"
                                             element={<JobApplicationPanel />}
                                         />
-                                        <Route
-                                            path="job-offers"
-                                            element={<JobOffersPanel />}
-                                        />
                                     </Route>
-                                </Route>
-                                <Route path="/*" element={<h1>404</h1>} />
-                            </Routes>
-                        </main>
-                    </GlobalContextProvider>
-                </AuthContextProvder>
-            </StateMachineProvider>
+                                    <Route path="/*" element={<h1>404</h1>} />
+                                </Routes>
+                            </main>
+                        </GlobalContextProvider>
+                    </AuthContextProvder>
+                </StateMachineProvider>
+            </QueryClientProvider>
         </BrowserRouter>
     )
 }

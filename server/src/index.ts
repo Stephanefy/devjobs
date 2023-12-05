@@ -48,7 +48,7 @@ async function bootstrap() {
   app.use("/api", protect, router);
   
   app.get("/all-jobposts", getAllJobPosts);
-
+  
   
   // unprotrected routes accessible to all
   app.post("/user", createNewUser);
@@ -64,7 +64,6 @@ async function bootstrap() {
   app.use(errorHandler);
 
   const port = config.get<number>("port")
-  console.log("fsdfs",port)
   app.listen(8000, () => {
     console.log(`Server is running on ${port}`);
   });
