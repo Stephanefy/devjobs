@@ -40,7 +40,7 @@ const JobApplicationForm = ({
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="bg-white w-6/12 mx-auto shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 mt-4"
+            className="bg-white mx-auto md:ml-20 w-[500px] md:min-w-6/12 rounded-lg p-8 md:px-8 pt-6 pb-8 mb-4"
         >
             <div className="mb-4">
                 <label
@@ -113,7 +113,7 @@ const JobApplicationForm = ({
                 />
                 {errors.phone && <p>{errors.phone.message}</p>}
             </div>
-            <div className="flex">
+            <div>
                 <div className="mb-4">
                     <label
                         className="block text-gray-700 text-sm font-bold mb-2"

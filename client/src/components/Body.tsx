@@ -3,10 +3,19 @@ import Button from './Button'
 import { AuthContext } from '../context/AuthContext'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 
 
-function Body({currentJob} : any) {
+interface Props {
+  page: "detail" | "application"
+  currentJob: any
+}
 
+
+function Body({page, currentJob} : Props) {
+
+
+  console.log("from body",currentJob)
 
   const { state } = useContext(AuthContext);
   const { user } = state;
@@ -18,9 +27,12 @@ function Body({currentJob} : any) {
 
 
   return (
-    <section className=" lg:w-[700px] bg-white dark:bg-app-very-black-blue rounded-md mx-auto mt-56 px-10 py-10 text-app-gray">
+    <section className={classNames(` w-[500px] lg:w-[700px] bg-white dark:bg-app-very-black-blue rounded-md mx-auto px-10 text-app-gray`, {
+      "mt-56 py-10": page === "detail",
+      "mx-8" : page === "application"
+    })}>
       <div>
-        <span>{currentJob?.postedAt}</span>
+        <span>{new Date(currentJob?.postedAt).toLocaleDateString()}</span>
         <span className="text-app-gray mx-2 text-6xl">.</span>
         <span>{" "}{currentJob?.contract}</span>
       </div>
@@ -30,7 +42,7 @@ function Body({currentJob} : any) {
           <p className='text-app-violet'>{currentJob.location}</p>
         </div>
         {
-          user?.role === "JOB_SEEKER" ? (
+          user?.role === "JOB_SEEKER" && page == 'detail' ? (
           <div className='hidden md:block'>
             <Button 
               text1='Apply'

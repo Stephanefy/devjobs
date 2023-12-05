@@ -61,7 +61,7 @@ function App() {
                                     <Route index element={<Home />} />
                                     <Route
                                         path="job/:id"
-                                        element={<Detail />}
+                                        element={<Detail/>}
                                     />
                                     <Route path="login" element={<Login />} />
                                     <Route path="signup" element={<SignUp />} />

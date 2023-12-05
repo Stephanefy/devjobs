@@ -145,7 +145,7 @@ export const getJobPostDetail = async (req: Request, res: Response, next: NextFu
       },
     });
 
-    res.status(200).json({ jobPost });
+    res.status(200).json({ ...jobPost });
   } catch (error) {
     next(error);
   }

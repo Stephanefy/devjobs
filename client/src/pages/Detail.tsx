@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { useParams } from 'react-router-dom'
 import { JobContext } from '../context/JobContext'
-import { JobPost } from '../types/global';
+import { JobPost } from '../types/global'
 
 type CurrentJob = {
   
@@ -33,7 +33,7 @@ type CurrentJob = {
 
 
 
-const Detail = ({ currentJob }: { currentJob: JobPost | {}}) => {
+const Detail = () => {
 
   const context = useContext(JobContext)
 
@@ -41,22 +41,20 @@ const Detail = ({ currentJob }: { currentJob: JobPost | {}}) => {
 
   console.log(id)
 
-  const [JobDetails, setJobDetails] = useState<JobPost | {}>(currentJob)
+  const [currentJob, setCurrentJob] = useState<JobPost | {}>({})
 
-  if (!currentJob) {
+  useEffect(() => {
     let currJob = context!.jobsData.filter((e:JobPost) => e.id == id!)    
     console.log('currentjob',currJob)
-    setJobDetails({...currJob[0]})
-  }
-
-
+    setCurrentJob({...currJob[0]})
+  }, [])
 
 
 
   return (
     <>
       <Header currentJob={currentJob}/>
-      <Body currentJob={currentJob}/>
+      <Body page="detail" currentJob={currentJob}/>
       <Footer currentJob={currentJob}/>
     </>
   )
