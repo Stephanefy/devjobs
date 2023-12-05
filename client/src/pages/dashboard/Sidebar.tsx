@@ -222,7 +222,7 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                     </button>
                 </div>
             ) : (
-                <div className="hidden md:block md:fixed bottom-10 md:bottom-0 left-10 lg:left-20">
+                <div className="hidden md:block md:fixed bottom- md:bottom-0 left-10 lg:left-16">
                     <button
                         type="button"
                         onClick={() => {
@@ -232,10 +232,10 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
-                            viewBox="0 0 24 24"
+                            viewBox="0 -15 40 40"
                             strokeWidth="1.5"
                             stroke="currentColor"
-                            className="w-6 h-6 text-white"
+                            className="w-30 h-12 text-white"
                         >
                             <path
                                 strokeLinecap="round"
