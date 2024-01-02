@@ -1,5 +1,6 @@
 import { FC, useContext, useEffect, useState } from 'react'
 import Sidebar from './Sidebar'
+import SidebarIcons from './SidebarIcon'
 import { AuthContext } from '../../context/AuthContext'
 import { Outlet } from 'react-router-dom'
 import { useStateMachine } from 'little-state-machine'
@@ -18,6 +19,7 @@ const MainDashboardEmployer: FC<Props> = (props): JSX.Element => {
         <div className={classNames(`w-full h-full flex lg:justify-center items-start bg-gray-200`, {
             
         })}>
+            <SidebarIcons role={state?.user!.role}/>
             <Sidebar role={state?.user!.role}/>
             <Outlet/>
         </div>

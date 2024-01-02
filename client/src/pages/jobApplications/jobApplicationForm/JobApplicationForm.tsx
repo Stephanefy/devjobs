@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 // import { Uploader, UploadButton } from 'react-uploader';
-import { useQuery } from 'react-query'
+import { useMutation } from 'react-query'
 import { getJob } from '../../../api/jobs'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
@@ -32,9 +32,27 @@ const JobApplicationForm = ({
         handleSubmit,
         formState: { errors },
     } = useForm<FormValues>()
+    const mutation = useMutation<Response, Error, Record<keyof FormValues, string | FormData>>({
+        mutationFn: (data) =>{
+            return axios.post('/api/application', data , {withCredentials: true}
+    )},
+    
+    })
 
     const onSubmit: SubmitHandler<FormValues> = (data) => {
-        console.log(data)
+
+    
+
+        console.log(data.resume[0])
+        const { name, email, phone, message } = data;
+
+
+        const resume = new FormData();
+        resume.append('resume',data.resume[0])
+        const coverLetter= new FormData();
+        coverLetter.append('coverLetter',data.coverLetter[0])
+
+        mutation.mutate({ name, email, phone, resume, coverLetter, message })
     }
 
     return (
@@ -131,6 +149,7 @@ const JobApplicationForm = ({
                                 "
                             id="resume"
                             type="file"
+                            name="resume"
                         />
                     </label>
                     {errors.resume && <p>{errors.resume.message}</p>}
@@ -154,6 +173,7 @@ const JobApplicationForm = ({
                         "
                         id="coverLetter"
                         placeholder="Cover Letter"
+                        name="coverLetter"
                     />
                     {errors.coverLetter && <p>{errors.coverLetter.message}</p>}
                 </div>

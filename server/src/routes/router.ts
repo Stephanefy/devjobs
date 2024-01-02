@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createNewJobPost, deletejobpost, getPostedJobpostsCount, getAllJobPostsCreatedBy, getJobPostDetail } from '../handlers/jobPost';
 import { signin, logout, getUserData } from '../handlers/user';
+import { applyToJobPost } from "../handlers/application";
 
 const router = Router();
 
@@ -13,6 +14,11 @@ router.get('/jobPost/posted-count', getPostedJobpostsCount)
 router.get('/jobPost', getAllJobPostsCreatedBy)
 router.get('/job/:id', getJobPostDetail)
 router.delete('/jobPost/:id', deletejobpost)
+
+/**
+ * job application related routes
+ */
+router.post('/application', applyToJobPost)
 
 /**
  * user related routes
