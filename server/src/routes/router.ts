@@ -2,6 +2,10 @@ import { Router } from "express";
 import { createNewJobPost, deletejobpost, getPostedJobpostsCount, getAllJobPostsCreatedBy, getJobPostDetail } from '../handlers/jobPost';
 import { signin, logout, getUserData } from '../handlers/user';
 import { applyToJobPost } from "../handlers/application";
+import multer from "multer";
+
+
+const upload = multer({ dest: 'uploads/' })
 
 const router = Router();
 
@@ -18,7 +22,7 @@ router.delete('/jobPost/:id', deletejobpost)
 /**
  * job application related routes
  */
-router.post('/application', applyToJobPost)
+router.post('/application', upload.single('resume'),applyToJobPost)
 
 /**
  * user related routes

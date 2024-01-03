@@ -12,7 +12,7 @@ type FormValues = {
     email: string
     phone: string
     resume: FileList
-    coverLetter: FileList
+    // coverLetter: FileList
     message: string,
 }
 
@@ -32,10 +32,18 @@ const JobApplicationForm = ({
         handleSubmit,
         formState: { errors },
     } = useForm<FormValues>()
-    const mutation = useMutation<Response, Error, Record<keyof FormValues, string | FormData>>({
+    const mutation = useMutation<Response, Error, FormData>({
         mutationFn: (data) =>{
-            return axios.post('/api/application', data , {withCredentials: true}
+            return axios.post('/api/application', data , {withCredentials: true, headers: {
+                'Content-Type': 'multipart/form-data'
+            }}
     )},
+    onSuccess: (response) => { 
+        console.log(response)
+    },
+    onError: (error) => {
+        console.log(error)
+    }
     
     })
 
@@ -43,21 +51,27 @@ const JobApplicationForm = ({
 
     
 
-        console.log(data.resume[0])
         const { name, email, phone, message } = data;
 
 
-        const resume = new FormData();
-        resume.append('resume',data.resume[0])
-        const coverLetter= new FormData();
-        coverLetter.append('coverLetter',data.coverLetter[0])
+        const formData = new FormData();
+        formData.append('resume',data.resume[0])
+        formData.append('name',name)
+        formData.append('email',email)
+        formData.append('phone',phone)
+        formData.append('message',message)
+        // const coverLetter= new FormData();
+        // coverLetter.append('coverLetter',data.coverLetter[0])
 
-        mutation.mutate({ name, email, phone, resume, coverLetter, message })
+        console.log("resume and cover letter",formData)
+
+        mutation.mutate(formData)
     }
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
+            encType='multipart/form-data'
             className="bg-white mx-auto md:ml-20 w-[500px] md:min-w-6/12 rounded-lg p-8 md:px-8 pt-6 pb-8 mb-4"
         >
             <div className="mb-4">
@@ -154,7 +168,7 @@ const JobApplicationForm = ({
                     </label>
                     {errors.resume && <p>{errors.resume.message}</p>}
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                     <label
                         className="block text-gray-700 text-sm font-bold mb-2"
                         htmlFor="coverLetter"
@@ -176,14 +190,14 @@ const JobApplicationForm = ({
                         name="coverLetter"
                     />
                     {errors.coverLetter && <p>{errors.coverLetter.message}</p>}
-                </div>
+                </div> */}
             </div>
             <div className="flex items-center justify-between mt-2">
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit"
                 >
-                    Submit
+                    Submit the application
                 </button>
             </div>
         </form>

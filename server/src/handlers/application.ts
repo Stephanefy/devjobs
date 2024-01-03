@@ -1,11 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import prisma from "../db";
-import multer from "multer";
+
 
 
 export const applyToJobPost = async (req: Request, res: Response, next: NextFunction) => {
-        const { name, email, phone, resume, coverLetter } = req.body;
+        console.log("req files",req.file);
+        const { name, email, phone, resume, coverLetter, application } = req.body;
 
+        console.log("reached", name, email, phone, resume, coverLetter, application);
 }
 
 
