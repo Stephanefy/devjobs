@@ -1,19 +1,17 @@
-import React from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useContext, useEffect, useState, useRef } from 'react'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 // import { Uploader, UploadButton } from 'react-uploader';
 import { useMutation } from 'react-query'
-import { getJob } from '../../../api/jobs'
-import { useLocation } from 'react-router-dom'
 import axios from 'axios'
-import { JobPost } from '../../../types/global'
+import { AuthContext } from '../../../context/AuthContext'
 
 type FormValues = {
     name: string
     email: string
     phone: string
-    resume: FileList
-    // coverLetter: FileList
-    message: string,
+    resume: File & FileList
+    coverLetter: File & FileList
+    message: string
 }
 
 interface JobApplicationFormProps {
@@ -22,56 +20,65 @@ interface JobApplicationFormProps {
 
 // const uploader = Uploader({ apiKey: "free" });
 
-const JobApplicationForm = ({
-    jobData,
-}: {
-    jobData: JobApplicationFormProps
-}) => {
+const JobApplicationForm = ({ jobData }: JobApplicationFormProps) => {
+    const { state } = useContext(AuthContext)
+
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        getValues,
+        watch,
+        control,
+        formState: { errors, touchedFields },
     } = useForm<FormValues>()
+
+    const watchedFileInputs = watch(['resume', 'coverLetter'])
+
+    console.log('watchFields', watchedFileInputs)
+
     const mutation = useMutation<Response, Error, FormData>({
-        mutationFn: (data) =>{
-            return axios.post('/api/application', data , {withCredentials: true, headers: {
-                'Content-Type': 'multipart/form-data'
-            }}
-    )},
-    onSuccess: (response) => { 
-        console.log(response)
-    },
-    onError: (error) => {
-        console.log(error)
-    }
-    
+        mutationFn: (data) => {
+            return axios.post('/api/application', data, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+        },
+        onSuccess: (response) => {
+            console.log(response)
+        },
+        onError: (error) => {
+            console.log(error)
+        },
     })
 
     const onSubmit: SubmitHandler<FormValues> = (data) => {
+        const { name, email, phone, message } = data
 
-    
+        const userId = state.user?.id as unknown as string
 
-        const { name, email, phone, message } = data;
+        console.log('from form data', data)
 
-
-        const formData = new FormData();
-        formData.append('resume',data.resume[0])
-        formData.append('name',name)
-        formData.append('email',email)
-        formData.append('phone',phone)
-        formData.append('message',message)
-        // const coverLetter= new FormData();
-        // coverLetter.append('coverLetter',data.coverLetter[0])
-
-        console.log("resume and cover letter",formData)
+        const formData = new FormData()
+        formData.append('resume', data.resume[0])
+        formData.append('coverLetter', data.coverLetter[0])
+        formData.append('name', name)
+        formData.append('email', email)
+        formData.append('phone', phone)
+        formData.append('message', message)
+        formData.append('appliedById', userId)
+        formData.append('appliedToId', jobData.id)
 
         mutation.mutate(formData)
     }
 
+    console.log('jobData', jobData)
+
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            encType='multipart/form-data'
+            encType="multipart/form-data"
             className="bg-white mx-auto md:ml-20 w-[500px] md:min-w-6/12 rounded-lg p-8 md:px-8 pt-6 pb-8 mb-4"
         >
             <div className="mb-4">
@@ -128,8 +135,8 @@ const JobApplicationForm = ({
                 />
                 {errors.phone && <p>{errors.phone.message}</p>}
             </div>
-            <div className='mb-4'>
-            <label
+            <div className="mb-4">
+                <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="message"
                 >
@@ -146,51 +153,78 @@ const JobApplicationForm = ({
                 {errors.phone && <p>{errors.phone.message}</p>}
             </div>
             <div>
-                <div className="mb-4">
+                <div className="mb-4 flex items-center">
                     <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="flex justify-center text-white text-sm font-bold mb-2 border-red-100 bg-app-violet w-32 px-3 py-2 rounded-md cursor-pointer hover:bg-app-light-violet mr-4"
                         htmlFor="resume"
                     >
-                        Resume
-                        <input
-                            {...register('resume', { required: false })}
-                            className="appearance-none flex text-gray-700 px-1 mt-2 file:py-2 
-                                file:border-0 justify-center
-                                file:text-lg file:font-semibold
-                                file:bg-violet-50 file:text-violet-700
-                                hover:file:bg-violet-100
-                                focus:outline-none 
-                                "
-                            id="resume"
-                            type="file"
-                            name="resume"
-                        />
+                        Your resume
                     </label>
+                    <Controller
+                        control={control}
+                        name="resume"
+                        rules={{ required: false }}
+                        render={({ field: { value, onChange, ...field } }) => {
+                            return (
+                                <input
+                                    {...field}
+                                    className="appearance-none text-sm text-slate-500 mr-8 py-2 px-4 rounded-md border-0 font-semibold bg-pink-50
+                                    text-pink-700 hover:bg-pink-100 cursor-pointer hidden
+                                    "
+                                    id="resume"
+                                    type="file"
+                                    name="resume"
+                                    onChange={(e) => {
+                                        if (e.target.files)
+                                            onChange(e.target.files[0])
+                                    }}
+                                    hidden
+                                />
+                            )
+                        }}
+                    />
+
+                    <span className='font-semibold'>
+                        {!watchedFileInputs[0]?.name
+                            ? 'Select a file'
+                            : watchedFileInputs[0]?.name}
+                    </span>
                     {errors.resume && <p>{errors.resume.message}</p>}
                 </div>
-                {/* <div className="mb-4">
+                <div className="mb-4 flex items-center">
                     <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="flex justify-center text-white text-sm font-bold mb-2 border-red-100 bg-app-violet w-32 px-3 py-2 rounded-md cursor-pointer hover:bg-app-light-violet mr-4"
                         htmlFor="coverLetter"
                     >
                         Cover Letter
                     </label>
-                    <input
-                        type="file"
-                        {...register('coverLetter', { required: false })}
-                        className="appearance-none block  text-gray-700 px-1 mt-2 file:py-2
-                        file:border-0
-                        file:text-lg file:font-semibold
-                        file:bg-violet-50 file:text-violet-700
-                        hover:file:bg-violet-100
-                        focus:outline-none 
-                        "
-                        id="coverLetter"
-                        placeholder="Cover Letter"
+                    <Controller
+                        control={control}
                         name="coverLetter"
+                        rules={{ required: false }}
+                        render={({ field: { value, onChange, ...field } }) => {
+                            return (
+                                <input
+                                    type="file"
+                                    id="coverLetter"
+                                    placeholder="Cover Letter"
+                                    name="coverLetter"
+                                    onChange={(e) => {
+                                        if (e.target.files)
+                                            onChange(e.target.files[0])
+                                    }}
+                                    hidden
+                                />
+                            )
+                        }}
                     />
+                    <span className='font-semibold'>
+                        {!watchedFileInputs[1]?.name
+                            ? 'Select a file'
+                            : watchedFileInputs[1]?.name}
+                    </span>{' '}
                     {errors.coverLetter && <p>{errors.coverLetter.message}</p>}
-                </div> */}
+                </div>
             </div>
             <div className="flex items-center justify-between mt-2">
                 <button

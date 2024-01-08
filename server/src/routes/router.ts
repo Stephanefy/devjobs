@@ -2,10 +2,8 @@ import { Router } from "express";
 import { createNewJobPost, deletejobpost, getPostedJobpostsCount, getAllJobPostsCreatedBy, getJobPostDetail } from '../handlers/jobPost';
 import { signin, logout, getUserData } from '../handlers/user';
 import { applyToJobPost } from "../handlers/application";
-import multer from "multer";
+import { singleTonMulter } from "../middleware/upload";
 
-
-const upload = multer({ dest: 'uploads/' })
 
 const router = Router();
 
@@ -22,7 +20,12 @@ router.delete('/jobPost/:id', deletejobpost)
 /**
  * job application related routes
  */
-router.post('/application', upload.single('resume'),applyToJobPost)
+router.post('/application', singleTonMulter.fields([{
+    name: "resume", maxCount: 1
+}, 
+{
+    name: "coverLetter", maxCount: 1
+}]), applyToJobPost)
 
 /**
  * user related routes

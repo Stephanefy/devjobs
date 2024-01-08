@@ -1,7 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import JobApplicationForm from './jobApplicationForm/JobApplicationForm'
 import { useQuery } from 'react-query'
-import axios from 'axios'
 import { getJob } from '../../api/jobs'
 import Body from '../../components/Body'
 
