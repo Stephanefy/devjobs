@@ -29,8 +29,8 @@ model User {
 model Profile {
   id        Int    @id @default(autoincrement())
   profilePic String?
-  username  String
-  biography String @db.Text()
+  username  String?
+  biography String? @db.Text()
   user      User   @relation(fields: [userId], references: [id])
   userId    String @unique
 }
@@ -57,7 +57,9 @@ model JobPost {
 }
 
 model Application {
-  id          Int      @id @default(autoincrement())
+  id          String      @id @default(uuid())
+  applicantName String?
+  applicantEmail String 
   resume      String?
   coverLetter String?
   message     String?  

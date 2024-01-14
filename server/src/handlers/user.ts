@@ -8,6 +8,14 @@ import bcrypt from "bcrypt";
 import { User } from "@prisma/client";
 import { ResetPasswordInput } from "../../schemas/user.schema";
 
+/**
+ * Creates a new user.
+ * and a new profile
+ *
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @return {Promise<void>} A promise that resolves when the user is created.
+ */
 export const createNewUser = async (req: Request, res: Response) => {
   const { email, password, role } = req.body;
 
@@ -19,6 +27,12 @@ export const createNewUser = async (req: Request, res: Response) => {
         email,
         password: await hashPassword(password),
         role,
+      },
+    });
+
+    await prisma.profile.create({
+      data: {
+        userId: user.id,
       },
     });
 

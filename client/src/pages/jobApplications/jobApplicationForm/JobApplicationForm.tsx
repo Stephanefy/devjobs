@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from 'react'
+import { useContext } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 // import { Uploader, UploadButton } from 'react-uploader';
 import { useMutation } from 'react-query'
@@ -61,8 +61,8 @@ const JobApplicationForm = ({ jobData }: JobApplicationFormProps) => {
         console.log('from form data', data)
 
         const formData = new FormData()
-        formData.append('resume', data.resume[0])
-        formData.append('coverLetter', data.coverLetter[0])
+        formData.append('resume', data.resume)
+        formData.append('coverLetter', data.coverLetter)
         formData.append('name', name)
         formData.append('email', email)
         formData.append('phone', phone)

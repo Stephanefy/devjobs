@@ -43,8 +43,9 @@ const Navbar = () => {
                     : "h-40 bg-[url('/assets/desktop/bg-pattern-header.svg')] bg-no-repeat bg-cover"
             } `}
         >
-            <div className={classNames(`flex justify-between w-10/12 md:w-5/6 mx-auto md:max-w-6xl`, {
-                'pt-4': !location.pathname.match(regex)
+            <div className={classNames(`flex justify-between w-10/12 md:w-5/6 mx-auto`, {
+                'pt-4': !location.pathname.match(regex),
+                'md:max-w-6xl': !location.pathname.match(regex),
             })}>
                 <div
                     className={classNames({

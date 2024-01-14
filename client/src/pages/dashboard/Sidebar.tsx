@@ -34,7 +34,7 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
     return (
         <div className="h-screen z-50">
             <nav
-                className={`min-h-screen fixed bottom-0 top-0 bg-app-violet w-[100px] left-[60px] ${
+                className={`min-h-screen fixed bottom-0 top-0 bg-app-violet w-[130px] left-[60px] ${
                     state.sidebarState?.status === 1
                         ? 'transform translate-x-0 ease-in duration-75'
                         : 'transform -translate-x-full ease-in duration-75'
@@ -59,6 +59,29 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                                 {state.sidebarState?.status === 1 && (
                                     <span className={`hidden lg:block `}>
                                         Job posts
+                                    </span>
+                                )}
+                            </Link>
+                        </li>
+                    )}
+                    {props.role === 'JOB_SEEKER' && (
+                        <li
+                            className={`
+                        ${
+                            state.sidebarState?.status === 1
+                                ? 'w-full transform translate-x-0'
+                                : 'w-24 transform translate-x-28  ease-in duration-300'
+                        }
+                } 
+                    `}
+                        >
+                            <Link
+                                to="applications"
+                                className="pl-3 flex gap-x-6 cursor-pointer dark:text-white hover:text-indigo-800 hover:ease-in transition duration-150 group"
+                            >
+                                {state.sidebarState?.status === 1 && (
+                                    <span className={`hidden lg:block `}>
+                                        Applications
                                     </span>
                                 )}
                             </Link>

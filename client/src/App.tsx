@@ -15,7 +15,8 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import MainDashBoard from './pages/dashboard/MainDashboard'
 import JobOffersPanel from './pages/dashboard/jobOffers/JobOffersPanel'
-import JobApplicationPanel from './pages/jobApplications/JobApplicationPanel'
+import ApplicationsPanel from './pages/dashboard/applications/ApplicationsPanel'
+import JobApplicationFormPage from './pages/jobApplications/JobApplicationFormPage'
 import MainPanel from './pages/dashboard/main/MainPanel'
 import checkExpiryDate from './utils/checkExpiryData'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -101,10 +102,14 @@ function App() {
                                                 path="job-offers"
                                                 element={<JobOffersPanel />}
                                             />
+                                            <Route
+                                                path="applications"
+                                                element={<ApplicationsPanel />}
+                                            />
                                         </Route>
                                         <Route
                                             path="job-applications"
-                                            element={<JobApplicationPanel />}
+                                            element={<JobApplicationFormPage />}
                                         />
                                     </Route>
                                     <Route path="/*" element={<h1>404</h1>} />

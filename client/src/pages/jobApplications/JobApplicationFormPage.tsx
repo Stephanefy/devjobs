@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 import { getJob } from '../../api/jobs'
 import Body from '../../components/Body'
 
-const JobApplicationPanel = () => {
+const JobApplicationFormPage = () => {
     const location = useLocation()
     console.log(location)
 
@@ -37,4 +37,4 @@ const JobApplicationPanel = () => {
     )
 }
 
-export default JobApplicationPanel
+export default JobApplicationFormPage

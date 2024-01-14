@@ -1,6 +1,16 @@
 import Button from "./Button"
+import { useNavigate } from "react-router-dom"
 
 function Footer({currentJob}: any) {
+
+
+  const navigate = useNavigate()
+
+  const navigateToApplicationForm = (id: string) => {
+    navigate(`/job-applications`, {state: {jobId: id}})
+  }
+
+
   return (
     <footer className='w-full h-24 bg-white dark:bg-app-very-black-blue mt-24'>
       <div className='w-5/6 lg:max-w-[700px] h-full flex justify-between items-center mx-auto'>
@@ -18,6 +28,7 @@ function Footer({currentJob}: any) {
             textColor='text-white'  
             paddingX='px-6'
             paddingY='py-2'
+            onClick={() => navigateToApplicationForm(currentJob.id)}
           />
         </div>
           <button className={`block md:hidden w-full px-6 py-2 bg-app-violet rounded-md text-white`}>
