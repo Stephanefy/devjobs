@@ -1,9 +1,10 @@
-import { useContext } from 'react'
+import { Dispatch, SetStateAction, useContext } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 // import { Uploader, UploadButton } from 'react-uploader';
 import { useMutation } from 'react-query'
 import axios from 'axios'
 import { AuthContext } from '../../../context/AuthContext'
+import toast from 'react-hot-toast';
 
 type FormValues = {
     name: string
@@ -15,12 +16,13 @@ type FormValues = {
 }
 
 interface JobApplicationFormProps {
-    jobData: any
+    jobData: any,
+    setOpen: Dispatch<SetStateAction<boolean>>
 }
 
 // const uploader = Uploader({ apiKey: "free" });
 
-const JobApplicationForm = ({ jobData }: JobApplicationFormProps) => {
+const JobApplicationForm = ({ jobData, setOpen }: JobApplicationFormProps) => {
     const { state } = useContext(AuthContext)
 
     const {
@@ -46,7 +48,10 @@ const JobApplicationForm = ({ jobData }: JobApplicationFormProps) => {
             })
         },
         onSuccess: (response) => {
-            console.log(response)
+                toast.success('Application submitted successfully')
+                setOpen(true)
+                console.log('response', response)
+            
         },
         onError: (error) => {
             console.log(error)
@@ -72,8 +77,6 @@ const JobApplicationForm = ({ jobData }: JobApplicationFormProps) => {
 
         mutation.mutate(formData)
     }
-
-    console.log('jobData', jobData)
 
     return (
         <form

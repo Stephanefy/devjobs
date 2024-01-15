@@ -68,16 +68,14 @@ export const applyToJobPost = async (
               console.log("publicUrl", publicUrl);
               f[0].cloudStorageObject = gcsname;
               console.log("data when writing media on gcs is finishd", file);
-              file.makePublic();
-              resolve(publicUrl);
+              resolve(gcsname);
             });
           })
         );
       }
-      Promise.all(promises).then(async (publicUrl) => {
-        console.log("publicUrl", publicUrl);
+      Promise.all(promises).then(async (gcsnames) => {
 
-        const [resumeUrl, coverLetterUrl] = publicUrl;
+        const [resumeUrl, coverLetterUrl] = gcsnames;
 
         const newApplication = await prisma.application.create({
           data: {
@@ -91,7 +89,6 @@ export const applyToJobPost = async (
         });
         res.status(201).json({ data: newApplication });
       });
-
 
       
     } catch (error) {
