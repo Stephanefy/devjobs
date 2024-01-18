@@ -1,10 +1,32 @@
+import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import { AuthContext } from "../context/AuthContext"
+import { useQuery } from "react-query"
+import { getApplications } from "../api/applications"
+
 interface Props {
-    applicationsData: any
-    isLoading: boolean
+  
 }
 
-const ApplicationTable = ({ applicationsData, isLoading }: Props) => {
-    console.log('application data', applicationsData)
+const ApplicationTable = (props : Props) => {
+    
+    const { state } = useContext(AuthContext)
+    const userId = state.user?.id as unknown as string
+
+
+    const { isLoading, data, error } = useQuery('applications', () =>
+        getApplications(userId)
+    )
+
+    
+    const navigate = useNavigate();
+
+    
+    const handleNavigateToDetail = (applicationId: string) => {
+        navigate(`/dashboard/applications/${applicationId}`);
+    }
+
+    
 
     return (
         <div className="px-4 sm:px-6 lg:px-8">
@@ -45,15 +67,21 @@ const ApplicationTable = ({ applicationsData, isLoading }: Props) => {
                                         </th>
                                         <th
                                             scope="col"
-                                            className="hidden md:inline-block ml-auto px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                            className="hidden md:inline-block w-32 ml-auto px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                                         >
                                                 Seen 
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="hidden md:inline-block ml-auto px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        >
+                                                Actions 
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
                                     {!isLoading &&
-                                        applicationsData?.data.map(
+                                        data.data?.map(
                                             (application: any) => (
                                                 <tr key={application.id} className="w-100">
                                                     <td className="hidden md:inline whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
@@ -74,8 +102,16 @@ const ApplicationTable = ({ applicationsData, isLoading }: Props) => {
                                                             application.postedAt
                                                         ).toLocaleDateString()}
                                                     </td>
-                                                    <td className="hidden md:inline-block whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                    <td className="hidden w-32 md:inline-block whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                         Not seen
+                                                    </td>
+                                                    <td className="hidden md:inline-block whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                        <button 
+                                                            className="hover:text-blue-300"
+                                                            onClick={() => handleNavigateToDetail(application.id)}
+                                                            >
+                                                            Review your application
+                                                        </button>
                                                     </td>
                                                     {/* <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-4">
                                     <button

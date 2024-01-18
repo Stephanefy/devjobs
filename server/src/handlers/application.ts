@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import prisma from "../db";
 import { storage } from "../storage/googleStorage";
 import { format } from "util";
+import { generateV4ReadSignedUrl } from "../utils/generateSignedUrl";
 
 /**
  * Applies to a job post.
@@ -112,7 +113,14 @@ export const applyToJobPost = async (
   }
 };
 
-
+/**
+ * Retrieves all applications with job information.
+ *
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @return {Promise<void>} The JSON response with the applications data.
+ */
 export const getAllApplicationsWithJobInfo = async (req: Request, res: Response, next: NextFunction) => {
 
   const applications = await prisma.application
@@ -137,3 +145,52 @@ export const getAllApplicationsWithJobInfo = async (req: Request, res: Response,
     res.json({data: applications}).status(200);
 
 }
+
+/**
+ * Retrieves the details of an application.
+ *
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @return {Promise<void>} Resolves with the application details.
+ */
+export const getApplicationDetails = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+
+
+  try {
+    const fileUrls = [];
+    const application = await prisma.application.findUnique({
+      include: {
+        appliedTo: {
+          select: {
+            apply: true,
+            contract: true,
+            description: true,
+            position: true
+          },
+        },
+      },
+      where: {
+        id: req.params.applicationId,
+      },
+
+
+      
+    });
+    if (application) {
+      application.resume && fileUrls.push(await generateV4ReadSignedUrl(application.resume));
+      application.coverLetter && fileUrls.push(await generateV4ReadSignedUrl(application.coverLetter));
+    }
+
+    console.log("fileUrls", fileUrls)
+
+    res.status(200).json({ data: application, files : fileUrls });
+  } catch (error) {
+    next(error);
+    res.status(400).json({ error });
+  }
+};

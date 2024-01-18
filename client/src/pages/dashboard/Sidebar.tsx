@@ -76,7 +76,7 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                     `}
                         >
                             <Link
-                                to="applications"
+                                to="applications/listing"
                                 className="pl-3 flex gap-x-6 cursor-pointer dark:text-white hover:text-indigo-800 hover:ease-in transition duration-150 group"
                             >
                                 {state.sidebarState?.status === 1 && (

@@ -46,6 +46,7 @@ export const createNewUser = async (req: Request, res: Response) => {
       secure: process.env.NODE_ENV === "production",
     });
     return res.status(200).json({
+      id: user!.id,
       message: "User created successfully",
       email: user.email,
       role: user.role,

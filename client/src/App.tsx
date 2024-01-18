@@ -20,6 +20,8 @@ import JobApplicationFormPage from './pages/jobApplications/JobApplicationFormPa
 import MainPanel from './pages/dashboard/main/MainPanel'
 import checkExpiryDate from './utils/checkExpiryData'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import ApplicationDetails from './components/ApplicationDetails'
+import ApplicationTable from './components/ApplicationTable'
 
 function App() {
     const client = new QueryClient()
@@ -105,7 +107,17 @@ function App() {
                                             <Route
                                                 path="applications"
                                                 element={<ApplicationsPanel />}
-                                            />
+                                            >
+                                                <Route 
+                                                    path="listing"
+                                                    element={<ApplicationTable/>}
+                                                />
+                                                <Route
+                                                    path=":applicationId"
+                                                    element={<ApplicationDetails/>}
+                                                />
+                                            
+                                            </Route>
                                         </Route>
                                         <Route
                                             path="job-applications"

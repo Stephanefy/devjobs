@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { createNewJobPost, deletejobpost, getPostedJobpostsCount, getAllJobPostsCreatedBy, getJobPostDetail } from '../handlers/jobPost';
 import { signin, logout, getUserData } from '../handlers/user';
-import { applyToJobPost, getAllApplicationsWithJobInfo } from "../handlers/application";
+import { applyToJobPost, getAllApplicationsWithJobInfo, getApplicationDetails } from "../handlers/application";
 import { singleTonMulter } from "../middleware/upload";
 
 
@@ -26,8 +26,8 @@ router.post('/application', singleTonMulter.fields([{
 {
     name: "coverLetter", maxCount: 1
 }]), applyToJobPost)
-router.get('/applications/:id', getAllApplicationsWithJobInfo)
-
+router.get('/applicant/applications/:userId', getAllApplicationsWithJobInfo)
+router.get('/applications/:applicationId', getApplicationDetails)
 /**
  * user related routes
  */

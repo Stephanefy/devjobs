@@ -6,7 +6,7 @@ import { storage } from "../storage/googleStorage"
  * a service account must be used for authorization.
  */
 // The ID of your GCS bucket
-// const bucketName = 'your-unique-bucket-name';
+const bucketName = 'devjobs-application-files';
 
 // The full path of your file inside the GCS bucket, e.g. 'yourFile.jpg' or 'folder1/folder2/yourFile.jpg'
 // const fileName = 'your-file-name';
@@ -15,7 +15,7 @@ import { storage } from "../storage/googleStorage"
 
 // Creates a client
 
-export const generateV4ReadSignedUrl = async (bucketName: string, fileName: string
+export const generateV4ReadSignedUrl = async (fileName: string
     ) => {
   // These options will allow temporary read access to the file
   const options = {
@@ -30,9 +30,16 @@ export const generateV4ReadSignedUrl = async (bucketName: string, fileName: stri
     .file(fileName)
     .getSignedUrl(options);
 
+  const [metadata] = await storage
+    .bucket(bucketName)
+    .file(fileName)
+    .getMetadata();
+
   console.log('Generated GET signed URL:');
   console.log(url);
   console.log('You can use this URL with any user agent, for example:');
   console.log(`curl '${url}'`);
+
+  return [url, metadata];
 }
 

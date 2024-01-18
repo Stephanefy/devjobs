@@ -28,7 +28,7 @@ const ThirdStep = () => {
                 </label>
                 <input
                     type="password"
-                    className="w-full p-2 rounded-lg mt-2"
+                    className="w-full p-2 rounded-lg mt-2 text-2xl"
                     {...register('password', { required: true })}
                 />
             </div>

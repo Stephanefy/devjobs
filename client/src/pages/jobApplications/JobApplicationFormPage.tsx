@@ -12,7 +12,7 @@ const JobApplicationFormPage = () => {
     const location = useLocation()
     console.log(location)
     
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
 
     const { isLoading, data, error } = useQuery('job', () =>
         getJob(location.state.jobId)
