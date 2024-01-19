@@ -3,7 +3,11 @@ import { useStateMachine } from 'little-state-machine'
 import { updateSignUp } from '../../utils/updateAction'
 import { useNavigate } from 'react-router-dom'
 
-const ThirdStep = () => {
+interface Props {
+    setStep: React.Dispatch<React.SetStateAction<number>>
+}
+
+const ThirdStep = ({ setStep }: Props) => {
     const { register, handleSubmit } = useForm()
     const { actions, state } = useStateMachine({ updateSignUp })
     const navigate = useNavigate()
@@ -22,7 +26,10 @@ const ThirdStep = () => {
             <h3 className="text-2xl text-white dark:text-gray-400">
                 JobSeeker
             </h3>
-            <div className='mt-4'>
+            <div className="my-2">
+                <p className="text-white">{state.data.email}</p>
+            </div>
+            <div className="mt-4">
                 <label htmlFor="password my-3">
                     <span className="block text-gray-400">password</span>
                 </label>
@@ -33,7 +40,13 @@ const ThirdStep = () => {
                 />
             </div>
             <button
-                className="w-full mt-6 bg-app-violet text-white rounded-lg p-2 "
+                onClick={() => setStep(2)}
+                className="w-full mt-6 bg-app-light-grey text-dark rounded-lg p-2 "
+            >
+                Back
+            </button>
+            <button
+                className="w-full mt-6 bg-app-light-grey text-dark rounded-lg p-2 "
                 type="submit"
             >
                 Create an Job seeker account

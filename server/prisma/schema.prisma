@@ -68,6 +68,7 @@ model Application {
   appliedById String
   appliedTo   JobPost  @relation(fields: [appliedToId], references: [id])
   appliedToId Int
+  isSeen Boolean @default(false)
 
   @@unique([id, appliedById])
 }

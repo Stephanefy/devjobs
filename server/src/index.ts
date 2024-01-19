@@ -1,7 +1,7 @@
 import express from "express";
 import prisma from "./db";
 import cors from "cors";
-import { createNewUser, signin, refreshToken, forgotPassword, resetPasswordHandler } from "./handlers/user";
+import { createNewUser, signin, refreshToken, forgotPassword, resetPasswordHandler, checkForEmailAvailability } from "./handlers/user";
 import router from "./routes/router";
 import { protect } from "./modules/auth";
 import cookieParser from "cookie-parser";
@@ -48,6 +48,7 @@ async function bootstrap() {
   app.use("/api", protect, router);
   
   app.get("/all-jobposts", getAllJobPosts);
+  app.get("/email-verification", checkForEmailAvailability);
   
   
   // unprotrected routes accessible to all

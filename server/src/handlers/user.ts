@@ -310,3 +310,34 @@ export const resetPasswordHandler = async (
     next(err);
   }
 };
+
+
+export const checkForEmailAvailability = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+
+  const email = req.query.email as string;
+
+  const user = await prisma.user.findFirst({
+    where: {
+      email
+    },
+  });
+
+  if (user) {
+    res.status(200).json({
+      data: {
+        available: false,
+      },
+    });
+  } else {
+    res.status(200).json({
+      data: {
+        available: true,
+      },
+    });
+  }
+
+}
