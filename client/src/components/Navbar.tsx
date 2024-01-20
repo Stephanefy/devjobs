@@ -14,26 +14,22 @@ import Logo from './Logo'
 
 const Navbar = () => {
     const { state } = useContext(AuthContext)
-    const { state: littleStateMachineState ,getState } = useStateMachine()
+    const { state: littleStateMachineState, getState } = useStateMachine()
 
     const { logout } = useLogout()
     const { scrollY } = useScroll()
     const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false)
-    const regex: RegExp = /\/dashboard(.*)/;
+    const regex: RegExp = /\/dashboard(.*)/
 
     const location = useLocation()
 
     console.log(location)
 
-
     useEffect(() => {
-
-        console.log("state",littleStateMachineState)
-
+        console.log('state', littleStateMachineState)
 
         console.log(state)
     }, [])
-
 
     return (
         <nav
@@ -43,20 +39,28 @@ const Navbar = () => {
                     : "h-40 bg-[url('/assets/desktop/bg-pattern-header.svg')] bg-no-repeat bg-cover"
             } `}
         >
-            <div className={classNames(`flex justify-between w-10/12 md:w-5/6 mx-auto`, {
-                'pt-4': !location.pathname.match(regex),
-                'md:max-w-6xl': !location.pathname.match(regex),
-            })}>
+            <div
+                className={classNames(
+                    `flex justify-between w-10/12 md:w-5/6 mx-auto`,
+                    {
+                        'pt-4': !location.pathname.match(regex),
+                        'md:max-w-6xl': !location.pathname.match(regex),
+                    }
+                )}
+            >
                 <div
                     className={classNames({
-                        'transition ease-in-out transform translate-x-24': littleStateMachineState.sidebarState?.status === 1 && location.pathname.match(regex), 
-                        'transition ease-in-out transform translate-x-0': littleStateMachineState.sidebarState?.status === 0 && location.pathname.match(regex), 
-                        
+                        'transition ease-in-out transform translate-x-24':
+                            littleStateMachineState.sidebarState?.status ===
+                                1 && location.pathname.match(regex),
+                        'transition ease-in-out transform translate-x-0':
+                            littleStateMachineState.sidebarState?.status ===
+                                0 && location.pathname.match(regex),
                     })}
                 >
                     <h1>
                         <Link to="/">
-                            <Logo/>
+                            <Logo />
                         </Link>
                     </h1>
                 </div>
@@ -105,41 +109,51 @@ const Navbar = () => {
                             </Link>
                         </div>
                     ) : (
-                        <div>
-                            <Menu>
-                                {({ open, close }) => (
-                                    <>
-                                        <Menu.Button className="relative">
-                                            {' '}
-                                            <BurgerButton open={open} />
-                                        </Menu.Button>
-                                        <Menu.Items
-                                            className="absolute top-[100px] flex flex-col bg-app-violet p-5 rounded z-[99]"
-                                            as="ul"
-                                        >
-                                            <Menu.Item>
-                                                <Link to="/login">
-                                                    <button className="mb-2 mr-2 text-white hover:underline">
-                                                        login
-                                                    </button>
-                                                </Link>
-                                            </Menu.Item>
-                                            <Menu.Item>
-                                                <Link to="/signup">
-                                                    <button className="mb-2 text-white hover:underline">
-                                                        sign up
-                                                    </button>
-                                                </Link>
-                                            </Menu.Item>
-                                        </Menu.Items>
-                                    </>
-                                )}
-                            </Menu>
-                        </div>
+                        <>
+                            <div className="md:hidden">
+                                <Menu>
+                                    {({ open, close }) => (
+                                        <>
+                                            <Menu.Button className="relative">
+                                                {' '}
+                                                <BurgerButton open={open} />
+                                            </Menu.Button>
+                                            <Menu.Items
+                                                className="absolute top-[100px] flex flex-col bg-app-violet p-5 rounded z-[99]"
+                                                as="ul"
+                                            >
+                                                <Menu.Item>
+                                                    <Link to="/login">
+                                                        <button className="mb-2 mr-2 text-white hover:underline">
+                                                            login
+                                                        </button>
+                                                    </Link>
+                                                </Menu.Item>
+                                                <Menu.Item>
+                                                    <Link to="/signup">
+                                                        <button className="mb-2 text-white hover:underline">
+                                                            sign up
+                                                        </button>
+                                                    </Link>
+                                                </Menu.Item>
+                                            </Menu.Items>
+                                        </>
+                                    )}
+                                </Menu>
+                            </div>
+                            <div className="hideen md:inline-block justify-between">
+                                <Link to="/login">
+                                <button className="mx-4 bg-white font-semibold text-dark px-6 py-2 rounded-md hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50" aria-label="Login button">Login</button>
+                                </Link>
+                                <Link to="/signup">
+                                <button className="border border-white font-semibold text-dark px-6 py-2 rounded-md  hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50" aria-label="Signup button">Signup</button>
+                                </Link>
+                            </div>
+                        </>
                     )}
                     <div className={`md:block`}>
                         {/* <SwitchButton /> */}
-                        <SunMoonButton/>
+                        <SunMoonButton />
                     </div>
                 </div>
             </div>

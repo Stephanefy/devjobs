@@ -2,7 +2,8 @@ import express from "express";
 import prisma from "./db";
 import cors from "cors";
 import { createNewUser, signin, refreshToken, forgotPassword, resetPasswordHandler, checkForEmailAvailability } from "./handlers/user";
-import router from "./routes/router";
+import protectedRouter from "./routes/protectedRoutes";
+import unprotectedRouter from "./routes/unprotectedRoutes";
 import { protect } from "./modules/auth";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
@@ -45,24 +46,15 @@ async function bootstrap() {
   );
   app.use(express.urlencoded({ extended: true }));
 
-  app.use("/api", protect, router);
-  
-  app.get("/all-jobposts", getAllJobPosts);
-  app.get("/email-verification", checkForEmailAvailability);
-  
-  
-  // unprotrected routes accessible to all
-  app.post("/user", createNewUser);
-  app.post("/signin", signin);
-  app.post("/refresh", refreshToken);
-  app.post("/forgot-password", forgotPassword)
-  app.post("/reset-password/:resetToken", resetPasswordHandler)
-
-  app.get("/", (req, res) => {
-    res.json({ message: "Hello the server is working" });
-  });
-
+  app.use("/", unprotectedRouter);
+  app.use("/api", protect, protectedRouter);
   app.use(errorHandler);
+  
+
+  // app.get("/", (req, res) => {
+  //   res.json({ message: "Hello the server is working" });
+  // });
+
 
   const port = config.get<number>("port")
   app.listen(8000, () => {

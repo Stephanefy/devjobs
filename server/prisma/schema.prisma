@@ -27,12 +27,12 @@ model User {
 }
 
 model Profile {
-  id        Int    @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   profilePic String?
-  username  String?
-  biography String? @db.Text()
-  user      User   @relation(fields: [userId], references: [id])
-  userId    String @unique
+  username   String?
+  biography  String? @db.Text()
+  user       User    @relation(fields: [userId], references: [id])
+  userId     String  @unique
 }
 
 model JobPost {
@@ -57,23 +57,36 @@ model JobPost {
 }
 
 model Application {
-  id          String      @id @default(uuid())
-  applicantName String?
-  applicantEmail String 
-  resume      String?
-  coverLetter String?
-  message     String?  
-  postedAt    DateTime @default(now())
-  appliedBy   User     @relation(fields: [appliedById], references: [id])
-  appliedById String
-  appliedTo   JobPost  @relation(fields: [appliedToId], references: [id])
-  appliedToId Int
-  isSeen Boolean @default(false)
+  id             String   @id @default(uuid())
+  applicantName  String?
+  applicantEmail String
+  resume         String?
+  coverLetter    String?
+  message        String?
+  postedAt       DateTime @default(now())
+  appliedBy      User     @relation(fields: [appliedById], references: [id])
+  appliedById    String
+  appliedTo      JobPost  @relation(fields: [appliedToId], references: [id])
+  appliedToId    Int
+  isSeen         Boolean  @default(false)
 
   @@unique([id, appliedById])
+}
+
+model Skill {
+  id         String          @id @default(uuid())
+  skillName  String
+  categories SkillCategory[]
+}
+
+model SkillCategory {
+  skillCategoryId   Int     @id
+  skillCategoryName String
+  skills            Skill[]
 }
 
 enum Role {
   JOB_SEEKER
   EMPLOYER
+  ADMIN
 }

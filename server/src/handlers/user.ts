@@ -73,7 +73,7 @@ export const signin = async (
       user!.password
     );
 
-    console.log(userIsValid)
+    console.log(userIsValid);
 
     if (!userIsValid) {
       res.status(401).json({ message: "Invalid credentials provided" });
@@ -181,7 +181,6 @@ export const forgotPassword = async (
 
     console.log(userProfile);
 
-
     const resetToken = crypto.randomBytes(32).toString("hex");
     const passwordResetToken = crypto
       .createHash("sha256")
@@ -254,10 +253,7 @@ export const resetPasswordHandler = async (
   res: Response,
   next: NextFunction
 ) => {
-
-
-  const { password } = req.body
-
+  const { password } = req.body;
 
   try {
     // Get the user from the collection
@@ -265,8 +261,6 @@ export const resetPasswordHandler = async (
       .createHash("sha256")
       .update(req.params.resetToken)
       .digest("hex");
-
-
 
     const user = await prisma.user.findFirst({
       where: {
@@ -311,18 +305,24 @@ export const resetPasswordHandler = async (
   }
 };
 
-
+/**
+ * Check for email availability.
+ *
+ * @param {Request} req - the request object
+ * @param {Response} res - the response object
+ * @param {NextFunction} next - the next function
+ * @return {Promise<void>} - a promise of void
+ */
 export const checkForEmailAvailability = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-
   const email = req.query.email as string;
 
   const user = await prisma.user.findFirst({
     where: {
-      email
+      email,
     },
   });
 
@@ -339,5 +339,14 @@ export const checkForEmailAvailability = async (
       },
     });
   }
+};
 
+
+export const getAllSkills = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const skills = await prisma.skill.findMany();
+  res.status(200).json({ data: skills });
 }

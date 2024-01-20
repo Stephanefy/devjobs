@@ -2,6 +2,9 @@ import { useForm } from 'react-hook-form'
 import { useStateMachine } from 'little-state-machine'
 import { updateSignUp } from '../../utils/updateAction'
 import { useNavigate } from 'react-router-dom'
+import Select from 'react-select'
+import { useQuery } from 'react-query'
+import axios from 'axios'
 
 interface Props {
     setStep: React.Dispatch<React.SetStateAction<number>>
@@ -11,6 +14,19 @@ const ThirdStep = ({ setStep }: Props) => {
     const { register, handleSubmit } = useForm()
     const { actions, state } = useStateMachine({ updateSignUp })
     const navigate = useNavigate()
+    let options;
+
+    const { isLoading, data } = useQuery('skillsList', async() => {
+        const response = await axios.get('http://localhost:8000/skills-list')
+        return response.data
+    })
+
+    console.log(data)
+    if (!isLoading && data) {
+         options = data?.data.map((skill: {id: string, skillName: string}) => {
+            return { value: skill.skillName, label: skill.skillName }
+        })
+    }
 
     const onSubmit = handleSubmit((data, e) => {
         console.log(e)
@@ -30,7 +46,16 @@ const ThirdStep = ({ setStep }: Props) => {
                 <p className="text-white">{state.data.email}</p>
             </div>
             <div className="mt-4">
-                <label htmlFor="password my-3">
+                <label htmlFor="skills">
+                    <span className="block text-gray-400">Skillset</span>
+                </label>
+                <Select
+                    isMulti
+                    options={options}
+                />
+            </div>
+            <div className="mt-4">
+                <label htmlFor="password">
                     <span className="block text-gray-400">password</span>
                 </label>
                 <input

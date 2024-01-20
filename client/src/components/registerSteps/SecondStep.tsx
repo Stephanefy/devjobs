@@ -22,13 +22,13 @@ const SeconStep = ({ onstephandler }: Props) => {
                     onClick={onstephandler}
                     className="my-4 mt-6 bg-app-light-grey text-dark rounded-lg p-2 font-semibold"
                 >
-                    Recruiter
+                    I'm recruiting
                 </button>
                 <button
                     onClick={onstephandler}
                     className="w-full my-4 mt-6 bg-app-light-grey text-dark rounded-lg p-2 font-semibold"
                 >
-                    Job seeker
+                    I'm looking for a position
                 </button>
             </div>
         </div>
