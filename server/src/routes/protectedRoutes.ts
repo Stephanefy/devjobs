@@ -13,6 +13,7 @@ import {
   getApplicationDetails,
 } from "../handlers/application";
 import { singleTonMulter } from "../middleware/upload";
+import { sendMessage } from "../handlers/message";
 
 const router = Router();
 
@@ -25,6 +26,12 @@ router.get("/jobPost/posted-count", getPostedJobpostsCount);
 router.get("/jobPost", getAllJobPostsCreatedBy);
 router.get("/job/:id", getJobPostDetail);
 router.delete("/jobPost/:id", deletejobpost);
+
+
+/**
+ * message related routes
+ */
+router.post("/message", sendMessage);
 
 /**
  * job application related routes

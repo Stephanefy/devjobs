@@ -6,7 +6,6 @@ import {
     Dispatch,
     SetStateAction,
 } from 'react'
-import Transition from '@headlessui/react'
 import BasicInfoInputs1 from './BasicInfoInputs1'
 import BasicInfoInputs2 from './BasicInfoInputs2'
 import JobDetailsInputs from './JobDetailsInputs'

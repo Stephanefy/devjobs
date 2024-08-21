@@ -5,6 +5,7 @@ import Header from '../components/Header'
 import { useParams } from 'react-router-dom'
 import { JobContext } from '../context/JobContext'
 import { JobPost } from '../types/global'
+import { useStateMachine } from 'little-state-machine'
 
 type CurrentJob = {
   
@@ -35,6 +36,9 @@ type CurrentJob = {
 
 const Detail = () => {
 
+  const { getState, state } = useStateMachine();
+
+
   const context = useContext(JobContext)
 
   const { id } = useParams()
@@ -50,11 +54,15 @@ const Detail = () => {
   }, [])
 
 
+  
+
+  console.log("test", state.currentSelectedJob);
+
 
   return (
     <>
       <Header currentJob={currentJob}/>
-      <Body page="detail" currentJob={currentJob}/>
+      <Body page="detail" currentJob={state.currentSelectedJob}/>
       <Footer currentJob={currentJob}/>
     </>
   )

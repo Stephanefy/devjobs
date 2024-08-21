@@ -49,5 +49,6 @@ declare module 'little-state-machine' {
     sidebarState: {
       status: number
     };
+    currentSelectedJob: JobPost
   }
 }

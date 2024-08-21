@@ -1,4 +1,5 @@
-import { StateMachineProvider } from 'little-state-machine'
+import { StateMachineProvider, createStore } from 'little-state-machine'
+import { initialState } from './store/globalStore'
 import './App.css'
 import { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -15,6 +16,8 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import MainDashBoard from './pages/dashboard/MainDashboard'
 import JobOffersPanel from './pages/dashboard/jobOffers/JobOffersPanel'
+import MessagePanel from './pages/dashboard/messages/MessagePanel';
+import MessageFormPage from './pages/dashboard/messages/MessageFormPage'
 import ApplicationsPanel from './pages/dashboard/applications/ApplicationsPanel'
 import JobApplicationFormPage from './pages/jobApplications/JobApplicationFormPage'
 import MainPanel from './pages/dashboard/main/MainPanel'
@@ -22,6 +25,16 @@ import checkExpiryDate from './utils/checkExpiryData'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import ApplicationDetails from './components/ApplicationDetails'
 import ApplicationTable from './components/ApplicationTable'
+
+
+const sessionData = sessionStorage.getItem("__LSM__")
+
+console.log(sessionData)
+
+createStore(sessionData ? JSON.parse(sessionData) : initialState, {
+    name: 'devjob-store',
+    persist: 'action',
+})
 
 function App() {
     const client = new QueryClient()
@@ -105,6 +118,10 @@ function App() {
                                                 element={<JobOffersPanel />}
                                             />
                                             <Route
+                                                path="messages"
+                                                element={<MessagePanel />}
+                                            />
+                                            <Route
                                                 path="applications"
                                                 element={<ApplicationsPanel />}
                                             >
@@ -123,6 +140,11 @@ function App() {
                                             path="job-applications"
                                             element={<JobApplicationFormPage />}
                                         />
+                                        <Route
+                                            path="contact-message"
+                                            element={<MessageFormPage />}
+                                        />
+
                                     </Route>
                                     <Route path="/*" element={<h1>404</h1>} />
                                 </Routes>

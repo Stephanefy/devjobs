@@ -3,6 +3,8 @@ import { FC, Dispatch, SetStateAction } from 'react'
 import { JobPost } from '../types/global'
 import toast, { Toaster } from 'react-hot-toast';
 import classNames from 'classnames';
+import TableHeader from './table/TableHeader';
+import Table from './table/Table';
 
 
 interface Props {
@@ -12,9 +14,13 @@ interface Props {
     handleOpenUpdateForm: (jobId: string) => void
 }
 
+const headerData = ["Company", "Position", "Posted at", "edit"]
+
 const JobOffersTable: FC<Props> = (props): JSX.Element => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    
     
     const notify = () => toast("job offer deleted with success", {
         icon: '✅'
@@ -65,37 +71,9 @@ const JobOffersTable: FC<Props> = (props): JSX.Element => {
                 <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="inline-block md:min-w-full py-2 align-middle md:px-6 lg:px-8">
                         <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
-                            <table className="md:min-w-full divide-y divide-gray-300 rounded-lg">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        <th
-                                            scope="col"
-                                            className="hidden md:inline-block w-32 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                                        >
-                                            Contract
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                        >
-                                            position
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="hidden md:inline px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                        >
-                                            posted at
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="relative py-3.5 pl-3 pr-4 sm:pr-6"
-                                        >
-                                            <span className="sr-only">
-                                                Edit
-                                            </span>
-                                        </th>
-                                    </tr>
-                                </thead>
+                            <Table headerData={headerData}/>
+                            {/* <table className="md:min-w-full divide-y divide-gray-300 rounded-lg"> */}
+                                {/* <TableHeader headerData={[]}/>
                                 <tbody className="divide-y divide-gray-200 bg-white">
                                     {props.jobPosts.map((jobPost) => (
                                         <tr key={jobPost.id}>
@@ -130,8 +108,8 @@ const JobOffersTable: FC<Props> = (props): JSX.Element => {
                                             </td>
                                         </tr>
                                     ))}
-                                </tbody>
-                            </table>
+                                </tbody> */}
+                            {/* </table> */}
                         </div>
                     </div>
                 </div>

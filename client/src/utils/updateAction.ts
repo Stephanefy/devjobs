@@ -111,3 +111,13 @@ export function updateSidebarState(state: GlobalState, payload: number) {
         }
     }
 }
+
+
+export function updateCurrentSelectedJob(state: GlobalState, payload: JobPost) {
+    return {
+        ...state,
+        currentSelectedJob: {
+            ...payload
+        }
+    }
+}

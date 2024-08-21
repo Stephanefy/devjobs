@@ -24,6 +24,8 @@ model User {
   passwordResetToken String?
   passwordResetAt    DateTime?
   Application        Application[]
+  sentMessage        Message[]     @relation("SentMessages")
+  receivedMessage    Message[]     @relation("ReceivedMessages")
 }
 
 model Profile {
@@ -83,6 +85,16 @@ model SkillCategory {
   skillCategoryId   Int     @id
   skillCategoryName String
   skills            Skill[]
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  content    String
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
+  senderId   String
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  receiverId String
+  createdAt  DateTime @default(now()) // Timestamp for when the message was created
 }
 
 enum Role {

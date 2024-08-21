@@ -26,7 +26,7 @@ const BasicInfoInputs: FC<Props> = ({
         contractSelection[0]
     )
 
-    console.log(state)
+    console.log("jfkldsjkdsl",state)
 
     return (
         <>

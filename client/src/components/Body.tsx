@@ -25,6 +25,10 @@ function Body({page, currentJob} : Props) {
     navigate(`/job-applications`, {state: {jobId: id}})
   }
 
+  const navigationToMessageContact = () => {
+    navigate('/contact-message')
+  }
+
 
   return (
     <section className={classNames(` w-[500px] lg:w-[700px] bg-white dark:bg-app-very-black-blue rounded-md mx-auto px-10 text-app-gray`, {
@@ -52,6 +56,15 @@ function Body({page, currentJob} : Props) {
               paddingX='px-6'
               paddingY='py-2'
               onClick={() => navigateToApplicationForm(currentJob.id)}
+            />
+            <Button 
+            text1="Send a message"
+            background='bg-app-violet'
+            textColor='text-white'
+            paddingX='px-6'
+            paddingY='py-2' 
+            extraClass='mt-2'           
+            onClick={() => navigationToMessageContact()}
             />
           </div>
 

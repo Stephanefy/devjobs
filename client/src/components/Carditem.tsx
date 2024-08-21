@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { JobContext } from "../context/JobContext"
 import { JobPost } from "../types/global";
 import { useNavigate } from "react-router-dom";
+import { useStateMachine } from "little-state-machine";
+import { updateCurrentSelectedJob } from "../utils/updateAction";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { AuthContext } from "../context/AuthContext";
 import Button from "./Button";
@@ -15,6 +17,9 @@ function Carditem({card} : CardItemProps) {
 
   const context = useContext(JobContext)
   const authState = useContext(AuthContext)
+  const { state, actions } = useStateMachine({
+    updateCurrentSelectedJob
+  })
 
   const { user } = authState.state
 
@@ -22,11 +27,13 @@ function Carditem({card} : CardItemProps) {
   const navigate = useNavigate()
 
   const handleNavigateToDetail = (id: string) => {
+    actions.updateCurrentSelectedJob(card)
     navigate(`/job/${id}`)
   }
 
 
   const postedAt = formatDistanceToNow(new Date(card.postedAt))
+
   
 
   return (

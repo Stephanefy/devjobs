@@ -106,6 +106,9 @@ export const getAllJobPosts = async (
     const jobPosts = await prisma.jobPost.findMany({
       orderBy: {
         postedAt: "desc"
+      },
+      include: {
+        postedBy: true
       }
     });
     res.status(200).json({ data: jobPosts });
@@ -150,3 +153,5 @@ export const getJobPostDetail = async (req: Request, res: Response, next: NextFu
     next(error);
   }
 }
+
+

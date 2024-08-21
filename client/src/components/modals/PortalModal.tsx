@@ -37,7 +37,7 @@ const PortalModal: FC<Props> = ({
                 leaveTo="opacity-0"
             >
                 <div className="fixed flex items-center justify-center h-full z-50 inset-0 w-screen bg-app-midnight bg-opacity-50 ">
-                    <div className="flex mb-12 my-auto justify-center w-full h-full z-50">
+                    <div className="flex mb-12 my-auto justify-center w-full z-50">
                         {children}
                     </div>
                 </div>

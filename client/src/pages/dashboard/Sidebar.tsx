@@ -96,16 +96,32 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                         }
                 `}
                     >
-                        <Link
-                            to="job-offers"
-                            className="pl-3 flex gap-x-6 cursor-pointer dark:text-white  hover:text-indigo-800 w-full hover:ease-in transition duration-150 group"
-                        >
-                            {state.sidebarState?.status === 1 && (
-                                <span className="hidden lg:block">
-                                    Messages
-                                </span>
-                            )}
-                        </Link>
+                        
+                            {state.sidebarState?.status === 1 && props.role === 'EMPLOYER' ? (
+                                <Link
+                                to="job-offers"
+                                className="pl-3 flex gap-x-6 cursor-pointer dark:text-white  hover:text-indigo-800 w-full hover:ease-in transition duration-150 group"
+                            >
+                                {state.sidebarState?.status === 1 && props.role === 'EMPLOYER' && (
+                                    <span className="hidden lg:block">
+                                        Messages
+                                    </span>
+                                )}
+                            </Link>
+                            ) : (
+                                <Link
+                                to="messages"
+                                className="pl-3 flex gap-x-6 cursor-pointer dark:text-white  hover:text-indigo-800 w-full hover:ease-in transition duration-150 group"
+                            >
+                                {state.sidebarState?.status === 1 && props.role === 'JOB_SEEKER' && (
+                                    <span className="hidden lg:block">
+                                        Messages
+                                    </span>
+                                )}
+                            </Link>
+                            )
+                        }
+                     
                     </li>
                     <li
                         className={`
@@ -156,30 +172,29 @@ const Sidebar: FC<Props> = (props): JSX.Element => {
                 </ul>
             </nav>
             {state.sidebarState?.status === 1 && (
-       
-                               <div className="hidden md:block md:fixed bottom- md:bottom-0 left-10 lg:left-16 z-[99]">
-                               <button
-                                   type="button"
-                                   onClick={() => {
-                                       actions.updateSidebarState(0)
-                                   }}
-                               >
-                                   <svg
-                                       xmlns="http://www.w3.org/2000/svg"
-                                       fill="none"
-                                       viewBox="0 -15 40 40"
-                                       strokeWidth="1.5"
-                                       stroke="currentColor"
-                                       className="w-30 h-12 text-white"
-                                   >
-                                       <path
-                                           strokeLinecap="round"
-                                           strokeLinejoin="round"
-                                           d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                       />
-                                   </svg>
-                               </button>
-                           </div>
+                <div className="hidden md:block md:fixed bottom- md:bottom-0 left-10 lg:left-16 z-[99]">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            actions.updateSidebarState(0)
+                        }}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 -15 40 40"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="w-30 h-12 text-white"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                        </svg>
+                    </button>
+                </div>
             )}
         </div>
     )
