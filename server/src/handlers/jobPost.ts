@@ -7,8 +7,7 @@ export const createNewJobPost = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("user id", req.user?.id);
-  console.log("body", req.body);
+ 
 
   const {
     company,

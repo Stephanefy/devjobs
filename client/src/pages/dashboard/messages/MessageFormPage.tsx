@@ -1,9 +1,12 @@
 import React, { Dispatch, SetStateAction, useContext } from 'react'
 import { AuthContext } from '../../../context/AuthContext'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { Toaster } from 'react-hot-toast'
 import { useMutation } from 'react-query'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import { useStateMachine } from 'little-state-machine'
+import DOMPurify from 'dompurify';
 
 type Props = {}
 
@@ -16,6 +19,9 @@ interface JobApplicationFormProps {
 }
 const MessageFormPage = ({ jobData }: JobApplicationFormProps) => {
     const { state } = useContext(AuthContext)
+    const { state: lmState} = useStateMachine();
+
+    const { currentSelectedJob } = lmState;
 
     const {
         register,
@@ -23,18 +29,17 @@ const MessageFormPage = ({ jobData }: JobApplicationFormProps) => {
         formState: { errors, touchedFields },
     } = useForm<FormValues>()
 
-    const mutation = useMutation<Response, Error, FormData>({
+    const mutation = useMutation<Response, Error, any>({
         mutationFn: (data) => {
-            return axios.post('/api/application', data, {
+            return axios.post('/api/message', data, {
                 withCredentials: true,
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
                 },
             })
         },
         onSuccess: (response) => {
-            toast.success('Application submitted successfully')
-            setOpen(true)
+            toast.success('Your message was sent successfully')
             console.log('response', response)
         },
         onError: (error) => {
@@ -47,27 +52,26 @@ const MessageFormPage = ({ jobData }: JobApplicationFormProps) => {
 
         const userId = state.user?.id as unknown as string
 
-        console.log('from form data', data)
+        const dataTosend = {
+            content: DOMPurify.sanitize(message),
+            sender: userId,
+            receiver: currentSelectedJob.postedById
+        }
 
-        const formData = new FormData()
-
-        formData.append('content', message)
-        formData.append('sender', userId)
-        formData.append('receiver', jobData.postedBy)
-
-        mutation.mutate(formData)
+        console.log(dataTosend)
+        mutation.mutate(dataTosend)
     }
     return (
-        <main className="w-full flex-col flex justify-center items-center">
+        <main className="w-full flex-col flex justify-center items-center my-4">
             <h2 className="text-2xl font-semibold">Message Form</h2>
-            <p className="text-left w-6/12 py-4">
+            <p className="text-left w-10/12 md:w-6/12 py-4">
                 If you are interested in this job and need some more information
                 about the offer, send a message to the employer.
             </p>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                encType="multipart/form-data"
-                className="bg-white mx-auto my-2 w-6/12 rounded-lg p-8 md:px-8 pt-6 pb-8 mb-4"
+                encType="application/json"
+                className="bg-white mx-auto my-2 w-10/12 md:w-6/12 rounded-lg p-8 md:px-8 pt-6 pb-8 mb-4"
             >
                 <div className="mb-4">
                     <label
@@ -81,20 +85,31 @@ const MessageFormPage = ({ jobData }: JobApplicationFormProps) => {
                         className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
                         id="message"
                         cols={8}
-                        rows={5}
+                        rows={10}
                     />
                     {errors.message && <p>{errors.message.message}</p>}
                 </div>
                 <div className="flex items-center justify-between mt-2">
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline justify-self-end"
                         type="submit"
                     >
                         Send the message
                     </button>
                 </div>
             </form>
+            <Toaster
+                position='bottom-center'
+                toastOptions={{
+                    duration: 1500,
+                    style: {
+                        background: '#fff',
+                        color: '#000',
+                    }
+                }}
+            />
         </main>
+        
     )
 }
 function onSuccess(

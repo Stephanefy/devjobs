@@ -6,7 +6,7 @@ type ChildrenProps = {
 }
 
 export type User = {
-        id: number,
+        id: string,
         message: string,
         email: string,
         role: "JOB_SEEKER" | "EMPLOYER" | string,
@@ -21,7 +21,7 @@ export const AuthContext = createContext<{
     state: AuthReducerState
     dispatch: Dispatch<{ type: string; payload?: User; }>
 }>({
-    state: { user: { id: 0, message: "", email: "", role: "" }},
+    state: { user: { id: "", message: "", email: "", role: "" }},
     dispatch: () => null
 });
 
@@ -33,17 +33,17 @@ export const authReducer = (state: AuthReducerState, action: { type: string; pay
         }
         case "LOGOUT":
             return {
-                user: { id: 0, message: "", email: "", role: "" },
+                user: { id: "", message: "", email: "", role: "" },
             }
         default: return state
     }
 }
 
-const initialState: AuthReducerState = { user: { id: 0, message: "", email: "", role: "" }}
+const initialState: AuthReducerState = { user: { id: "", message: "", email: "", role: "" }}
 
 export const AuthContextProvder = ({ children } : ChildrenProps) => {
 
-    const [user, setUser ] = useLocalStorage<User>('user', { id: 0, message: "", email: "", role: ""} )
+    const [user, setUser ] = useLocalStorage<User>('user', { id: "", message: "", email: "", role: ""} )
 
     console.log('from context', user)
 

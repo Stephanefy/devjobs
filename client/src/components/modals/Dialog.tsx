@@ -32,7 +32,6 @@ function MyDialog({
             <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
                 <Dialog.Panel className="w-full max-w-sm rounded bg-white p-5">
                     <Dialog.Title className="text-2xl font-semibold my-2">
-                        jifdjsfsdlk
                         {dialogTitle}
                     </Dialog.Title>
                     <Dialog.Description className="mb-2">

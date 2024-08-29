@@ -14,7 +14,7 @@ async function checkForEmailAvailability(email: string) {
             },
         }
     )
-
+    console.log("response",response)
     return response
 }
 
@@ -24,7 +24,7 @@ type Props = {
 
 const FirstSteps = ({ onstephandler }: Props) => {
     const { actions, state } = useStateMachine({ updateSignUp })
-    const [emailAvailability, setEmailAvailability] = useState<boolean>(false)
+    const [emailAvailability, setEmailAvailability] = useState<boolean>(true)
 
     const {
         register,

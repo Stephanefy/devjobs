@@ -1,15 +1,35 @@
-import TableHeader from './TableHeader';
+import TableHeader from './TableHeader'
+import { SentMessage } from '../../../../.history/client/src/store/message_20240829211520'
+import { Dispatch, SetStateAction } from 'react'
 
 type Props = {
-  headerData: string[]
+    headerData: string[]
+    sentMessages?: SentMessage[]
+    setSelectedMesage?: Dispatch<SetStateAction<string>>
 }
 
-const Table = ({headerData}: Props) => {
-  return (
-    <table className="md:min-w-full divide-y divide-gray-300 rounded-lg">
-        <TableHeader headerData={headerData}/>
-    </table>
-  )
+const Table = ({ headerData, sentMessages, setSelectedMesage }: Props) => {
+
+
+
+    return (
+        <table className="w-full table-auto">
+            <TableHeader headerData={headerData} />
+            <tbody className='text-center divide-x-4 divide-y-4 overflow-auto'>
+                {sentMessages?.length &&
+                    sentMessages.map((message) => (
+                        <tr key={message.id} className='bg-gray-300 cursor-pointer' onClick={() => {
+                          if(setSelectedMesage)
+                          setSelectedMesage(message.content)
+                          
+                          }}>
+                            <td className=''>{message.receiver.email}</td>
+                            <td className=''>{new Date(message.createdAt).toLocaleString()}</td>
+                        </tr>
+                    ))}
+            </tbody>
+        </table>
+    )
 }
 
 export default Table
