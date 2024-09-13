@@ -11,3 +11,7 @@ export type SentMessage = {
     }
     senderId: string
 }
+
+export interface ReceivedMessage extends SentMessage {
+    id: string
+}

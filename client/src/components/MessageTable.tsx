@@ -3,11 +3,13 @@ import { getMessageAsReceiver, getSentMessages } from '../api/message'
 import Table from './table/Table'
 import { useQuery } from 'react-query'
 import { AuthContext } from '../context/AuthContext'
-import { SentMessage } from '../store/message'
+import { SentMessage, ReceivedMessage } from '../store/message'
 
 type Props = {
+    type: "sent" | "received"
     setSelectedMessage: Dispatch<SetStateAction<string>>
-    sentMessages?: SentMessage[]
+    sentMessages?: SentMessage[],
+    receivedMessages?: ReceivedMessage[]
 }
 
 const headerData = ['to', 'date']
@@ -16,7 +18,7 @@ const MessageTable = (props: Props) => {
     return (
         <div className='w-full'>
             <Table
-                headerData={headerData}
+                type={props.type}
                 sentMessages={props.sentMessages}
                 setSelectedMesage={props.setSelectedMessage}
             />

@@ -1,20 +1,20 @@
 import TableHeader from './TableHeader'
-import { SentMessage } from '../../../../.history/client/src/store/message_20240829211520'
+import { SentMessage } from '../../store/message'
 import { Dispatch, SetStateAction } from 'react'
 
 type Props = {
-    headerData: string[]
+    type: "received" | "sent"
     sentMessages?: SentMessage[]
     setSelectedMesage?: Dispatch<SetStateAction<string>>
 }
 
-const Table = ({ headerData, sentMessages, setSelectedMesage }: Props) => {
+const Table = ({ sentMessages, setSelectedMesage, type }: Props) => {
 
 
 
     return (
         <table className="w-full table-auto">
-            <TableHeader headerData={headerData} />
+            <TableHeader type={type} />
             <tbody className='text-center divide-x-4 divide-y-4 overflow-auto'>
                 {sentMessages?.length &&
                     sentMessages.map((message) => (

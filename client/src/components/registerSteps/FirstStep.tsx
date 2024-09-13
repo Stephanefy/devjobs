@@ -14,7 +14,7 @@ async function checkForEmailAvailability(email: string) {
             },
         }
     )
-    console.log("response",response)
+    console.log('response', response)
     return response
 }
 
@@ -49,13 +49,15 @@ const FirstSteps = ({ onstephandler }: Props) => {
     })
 
     return (
-        <form id="step-1" onSubmit={onSubmit} className="p-8 bg-app-violet">
+        <form id="step-1" onSubmit={onSubmit} className="p-8">
             <label htmlFor="email">
-                <span className="block text-white mb-2">Email address :</span>
+                <span className="block text-white mb-2 dark:text-app-dark-grey">
+                    Email address :
+                </span>
             </label>
             <input
                 type="Email address"
-                className="w-full p-2 rounded-lg"
+                className="w-full p-2 rounded-lg dark:border-app-violet"
                 {...register('email', {
                     required: true,
                     pattern: {
@@ -68,7 +70,6 @@ const FirstSteps = ({ onstephandler }: Props) => {
                         reset()
                     }
                     setEmailAvailability(true)
-                
                 }}
             />
             {!emailAvailability && (
@@ -77,12 +78,12 @@ const FirstSteps = ({ onstephandler }: Props) => {
                 </span>
             )}
             {errors.email && (
-                    <span className="text-orange-500">
-                   {errors.email.message as string}
+                <span className="text-orange-500">
+                    {errors.email.message as string}
                 </span>
             )}
             <button
-                className="w-full mt-6 bg-app-light-grey text-dark rounded-lg p-2 font-semibold"
+                className="w-full mt-6 bg-app-light-grey dark:bg-app-violet text-dark rounded-lg p-2 font-semibold dark:text-white"
                 type="submit"
             >
                 what is your role ?

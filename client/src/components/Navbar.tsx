@@ -66,7 +66,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex items-start justify-end space-x-4 md:w-3/12 h-full pt-4">
-                    {state.user?.id !== 0 ? (
+                    {state.user?.id !== "" ? (
                         <div className="hidden md:flex space-x-6">
                             <button
                                 className="mb-2 mr-2 text-white hover:underline"
