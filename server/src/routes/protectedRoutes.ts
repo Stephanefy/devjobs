@@ -6,7 +6,7 @@ import {
   getAllJobPostsCreatedBy,
   getJobPostDetail,
 } from "../handlers/jobPost";
-import { signin, logout, getUserData } from "../handlers/user";
+import { signin, logout, getUserData, getAppliedCount } from "../handlers/user";
 import {
   applyToJobPost,
   getAllApplicationsWithJobInfo,
@@ -54,6 +54,10 @@ router.post(
 );
 router.get("/applicant/applications/:userId", getAllApplicationsWithJobInfo);
 router.get("/applications/:applicationId", getApplicationDetails);
+router.get("/applications/count/:applicantId", getAppliedCount);
+
+
+
 /**
  * user related routes
  */

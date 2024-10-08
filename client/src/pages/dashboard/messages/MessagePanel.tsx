@@ -28,7 +28,7 @@ const MessagePanel = (props: Props) => {
 
     return (
         <section className="w-12/12 sm:w-8/12 mx-auto">
-            <h1 className="text-3xl font-semibold">Messages</h1>
+            <h1 className="text-3xl font-semibold my-8">Messages</h1>
             <Tab>
                 <TabItem id="1">
                     <TabHeader>Inbox</TabHeader>

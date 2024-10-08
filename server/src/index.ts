@@ -1,13 +1,11 @@
 import express from "express";
 import prisma from "./db";
 import cors from "cors";
-import { createNewUser, signin, refreshToken, forgotPassword, resetPasswordHandler, checkForEmailAvailability } from "./handlers/user";
 import protectedRouter from "./routes/protectedRoutes";
 import unprotectedRouter from "./routes/unprotectedRoutes";
 import { protect } from "./modules/auth";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
-import { getAllJobPosts } from "./handlers/jobPost";
 import { errorHandler } from "./modules/middleware/errorHandler";
 import config from 'config'
 import validateEnv from "./utils/validateEnv";

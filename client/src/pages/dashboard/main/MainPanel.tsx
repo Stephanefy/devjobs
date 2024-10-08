@@ -35,10 +35,10 @@ const MainPanel: FC<Props> = (props): JSX.Element => {
     return (
         <section
             className={classNames(
-                `w-full overflow-auto bg-gray-200 pt-8 pl-8 pr-16 md:pl-56 md:pr-16 lg:pr-6`,
+                `max-w-2xlsm:max-w-7xl overflow-auto bg-gray-200 pt-8 pl-8 md:pl-56 sm:pr-16 lg:pr-6`,
                 {
-            'transition ease-in-out transform -translate-x-10': littleStateMachineState.sidebarState?.status === 0,
-            'transition ease-in-out transform translate-x-0': littleStateMachineState.sidebarState?.status === 1
+            'transition ease-in-out transform md:-translate-x-10': littleStateMachineState.sidebarState?.status === 0,
+            'transition ease-in-out transform md:translate-x-0': littleStateMachineState.sidebarState?.status === 1
                 }
             )}
         >

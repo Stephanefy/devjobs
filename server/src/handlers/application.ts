@@ -3,6 +3,7 @@ import prisma from "../db";
 import { storage } from "../storage/googleStorage";
 import { format } from "util";
 import { generateV4ReadSignedUrl } from "../utils/generateSignedUrl";
+import { has } from "lodash";
 
 /**
  * Applies to a job post.
@@ -194,3 +195,25 @@ export const getApplicationDetails = async (
     res.status(400).json({ error });
   }
 };
+
+
+export const getApplicantHasApplied = async(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+
+  const hasApplied = await prisma.application.findFirst({
+    where: {
+      appliedById: req.params.applicantId,
+      applicantEmail: req.params.jobPostId,
+    }
+  })
+
+  if(hasApplied) {
+    res.status(200).json({hasApplied: true});
+  }
+  
+  res.status(200).json({hasApplied: false});
+
+}

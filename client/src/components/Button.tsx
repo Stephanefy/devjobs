@@ -11,6 +11,7 @@ interface ButtonProps extends HTMLProps<HTMLButtonElement> {
     paddingY?: string
     isMobile?: boolean
     width?: string
+    darkColor?: string
     handleNextLoad?: React.MouseEventHandler<HTMLButtonElement>
     onClick?: () => void
 }
@@ -25,6 +26,7 @@ function Button({
     paddingY,
     isMobile,
     extraClass,
+    darkColor,
     handleNextLoad,
     width = "w-full",
     onClick,
@@ -36,7 +38,7 @@ function Button({
     return (
         <button
             type={buttonType}
-            className={`${width} ${background} ${paddingX} ${paddingY} rounded-md ${textColor} ${extraClass ? extraClass : ''} dark:text-white cursor-pointer hover:opacity-70 transition ease-in 300s flex items-center justify-center`}
+            className={`${width} ${background} ${paddingX} ${paddingY} rounded-md ${textColor} ${extraClass ? extraClass : ''} dark:${darkColor} cursor-pointer hover:opacity-70 transition ease-in 300s flex items-center justify-center`}
             onClick={onClick}
         >
             <span className="inline-block text-base mr-1 font-semibold">{text1}</span>

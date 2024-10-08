@@ -345,8 +345,39 @@ export const checkForEmailAvailability = async (
 export const getAllSkills = async (
   req: Request,
   res: Response,
-  next: NextFunction
 ) => {
   const skills = await prisma.skill.findMany();
   res.status(200).json({ data: skills });
 }
+
+
+
+export const getAppliedCount = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    console.log("Reached request handler");
+    console.log("Response object type:", typeof res);
+
+    const  applicantId = req.params.applicantId;
+
+    if (!applicantId) {
+      return res.status(400).json({ error: "Applicant ID is required" });
+    }
+
+    const nbOfApplications = await prisma.application.findMany({
+      where: {
+        appliedById: applicantId,
+      },
+    });
+
+    console.log(nbOfApplications.length)
+
+    res.status(200).json({ number_of_applications: nbOfApplications.length });
+  } catch (error) {
+    console.error("Error in getAppliedCount:", error);
+    next(error);
+  }
+};

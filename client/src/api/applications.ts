@@ -13,3 +13,10 @@ export const getApplication = async (applicationId: string) => {
 
   return application.data
 }
+
+
+export const getApplicationCount = async (applicantId: string) => {
+  const applicationCount = await axios.get(`http://localhost:8000/api/applications/count/${applicantId}`, {withCredentials: true})
+
+  return applicationCount.data;
+}

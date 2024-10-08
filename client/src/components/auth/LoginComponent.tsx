@@ -49,12 +49,12 @@ const LoginComponent = () => {
             </h2>
             <form
                 onSubmit={onSubmit}
-                className="md:w-5/12 mx-6 rounded-lg p-6 md:p-12 bg-gray-600 dark:bg-app-light-grey h-3/5"
+                className="md:w-5/12 mx-6 rounded-lg p-6 md:p-12 bg-app-violet dark:bg-app-very-black-blue h-fit"
             >
                 {' '}
                 <div>
                     <label htmlFor="email">
-                        <span className="text-white dark:text-black">
+                        <span className="text-white ">
                             Email address
                         </span>
                     </label>
@@ -67,7 +67,7 @@ const LoginComponent = () => {
                 </div>
                 <div className="mt-6">
                     <label htmlFor="password">
-                        <span className="text-white dark:text-black">
+                        <span className="text-white ">
                             Password
                         </span>
                     </label>
@@ -81,21 +81,22 @@ const LoginComponent = () => {
                 <div className="flex justify-center w-full mt-12">
                     <Button
                         text1="login"
-                        background="bg-app-violet"
+                        background="bg-app-light-grey"
                         paddingX="p-3"
                         paddingY="p-2"
-                        textColor="text-white"
+                        textColor="text-app-dark-blue"
+                        darkColor="app-very-black-blue"
                     />
                 </div>
                 <div className='mt-8'>
                     <div className="mt-3">
-                        <span className="text-white dark:text-black hover:text-app-violet">
+                        <span className="text-white dark:text-white hover:text-app-violet">
                             <Link to="/signup">Don't have an account?</Link>
                         </span>
                     </div>
                     <p className="text-white">
                         Can't login ?{' '}
-                        <span className="dark:text-black hover:text-app-violet">
+                        <span className="dark:text-white hover:text-app-violet">
                             <Link to="/forgot-password">
                                 Reset your password?
                             </Link>
